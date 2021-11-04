@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Login Tiem Sach</title>
+    
+</head>
+
+<body>
+
+    <!-- Login Start -->
+    <div class="login">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 mx-auto">
+                    <div class="login-form">
+                        <form action="/users/dang-nhap" method="post">
+                            <div class="row">
+                                <legend class="text-center">Đăng nhập</legend>
+                                <div class="col-md-6">
+                                    <label for="username">Username</label>
+                                    <input id="username" name="username" class="form-control" type="text" placeholder="Username">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="password">Mật khẩu</label>
+                                    <input id="password" name="password" class="form-control" type="password" placeholder="Mật khẩu">
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="custom-control custom-checkbox">
+                                        <!-- <input type="checkbox" class="custom-control-input" id="newaccount">
+                                            <label class="custom-control-label" for="newaccount">Lưu đăng nhập</label> -->
+                                        <a href="/users/quen-mat-khau">Quên mật khẩu?</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 text-center">
+                                    <button class="btn">Đăng nhập</button>
+                                </div>
+                            </div>
+                        </form>
+                        <a href="/users/dang-ky">Chưa có tài khoản? Đăng ký</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Login End -->
+
+</body>
+
+</html>

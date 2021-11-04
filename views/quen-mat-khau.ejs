@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Nhap email lay mat khau</title>
+</head>
+
+<body>
+    <!-- Login Start -->
+<div class="login">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                <div class="login-form">
+                    <form action="/users/quen-mat-khau" method="post">
+                        <div class="row">
+                            <legend class="text-center">Quên mật khẩu</legend>
+                            <div class="col-md-6 mx-auto">
+                                <label for="username">Email</label> <br>
+                                <i class="text-warning"><%= message %></i>
+                                <input id="username" name="email" class="form-control" type="text" placeholder="Nhập email của bạn vào đây">
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <button class="btn">Gửi mật khẩu</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Login End -->
+</body>
+
+</html>
