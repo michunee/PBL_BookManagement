@@ -3,13 +3,29 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Trang chu tiem sach</title>
+    <title>BOOK MANAGEMENT</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="eCommerce HTML Template Free Download" name="keywords">
+    <meta content="eCommerce HTML Template Free Download" name="description">
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../img/favicon.ico">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
+
+    <!-- CSS Libraries -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="../lib/slick/slick.css" rel="stylesheet">
+    <link href="../lib/slick/slick-theme.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="../stylesheets/style.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
 </head>
 
-<body>
+<body style="background-image: url('../img/background2.jpg');">
+
     <!-- Nav Bar Start -->
     <div class="nav">
         <div class="container-fluid">
@@ -17,10 +33,9 @@
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto">
                         <a href="/users/trang-chu" class="nav-item nav-link active">Trang Chủ</a>
-                        <a href="" class="nav-item nav-link">Sản Phẩm</a>
-                        <a href="" class="nav-item nav-link">Giỏ Hàng</a>
-                        <a href="" class="nav-item nav-link">Thanh Toán</a>
-                        <a href="" class="nav-item nav-link">Tài khoản của bạn</a>
+                        <a href="/gio-hang" class="nav-item nav-link">Giỏ Hàng</a>
+                        <a href="/thanh-toan" class="nav-item nav-link">Thanh toán</a>
+                        <a href="/users/tai-khoan" class="nav-item nav-link">Tài khoản của bạn</a>
                         <a href="/users/dang-xuat" class="nav-item nav-link">Đăng xuất</a>
                         </div>
                     </div>
@@ -30,7 +45,133 @@
         </div>
     </div>
     <!-- Nav Bar End -->
-    Trang chủ website
+
+     <!-- Bottom Bar Start -->
+     <div class="bottom-bar">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-md-3">
+                    <div class="logo">
+                        <a href="../users/trang-chu">
+                            <img src="../img/favicon.ico" alt="Logo">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="search">
+                        <input type="text" placeholder="Search">
+                        <button><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bottom Bar End -->
+
+    <!-- Product List Start -->
+    <div class="product-view">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="product-view-top">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="product-search">
+                                            <input id="myInput" type="email" placeholder="Tìm kiếm tên sản phẩm" autocomplete="off">
+                                            <button><i class="fa fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="product-short">
+                                            <div class="dropdown">
+                                                <div class="dropdown-toggle" data-toggle="dropdown">Sắp xếp theo</div>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a href="#" class="dropdown-item">Mới nhất</a>
+                                                    <a href="#" class="dropdown-item">Phổ biến</a>
+                                                    <a href="#" class="dropdown-item">Bán chạy nhất</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="product-price-range">
+                                            <div class="dropdown">
+                                                <div class="dropdown-toggle" data-toggle="dropdown">Sắp xếp theo giá</div>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a href="#" class="dropdown-item">0 ₫ - 500.000 ₫</a>
+                                                    <a href="#" class="dropdown-item">500.000 ₫ - 1.000.000 ₫</a>
+                                                    <a href="#" class="dropdown-item">1.000.000 ₫ - 2.000.000 ₫</a>
+                                                    <a href="#" class="dropdown-item">2.000.000 ₫ - 5.000.000 ₫</a>
+                                                    <a href="#" class="dropdown-item">Trên 5.000.000 ₫</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                    </div>
+
+                    <!-- Pagination Start -->
+                    <div class="col-md-12">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                </li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <!-- Pagination Start -->
+                </div>
+
+                <!-- Side Bar Start -->
+                <div class="col-lg-4 sidebar">
+                    <div class="sidebar-widget category">
+                        <h2 class="title">Danh mục</h2>
+                        <nav class="navbar bg-light">
+                            
+                        </nav>
+                    </div>
+
+                    <div class="sidebar-widget widget-slider">
+                        <h3 style="text-align: center; color: #FF6F61;">Sách Bán Chạy</h3>
+                        <div class="sidebar-slider normal-slider">
+                            
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Side Bar End -->
+            </div>
+        </div>
+    </div>
+    <!-- Product List End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="../lib/easing/easing.min.js"></script>
+    <script src="../lib/slick/slick.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="../js/main.js"></script>
+
+    
 </body>
 
 </html>

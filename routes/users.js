@@ -4,6 +4,12 @@ var db = require('../models/database')
 var modelUser = require('../models/model_user');
 const bcrypt = require("bcrypt");
 
+
+/* GET users listing. */
+router.get('/tai-khoan', function(req, res, next) {
+  res.render("my-account.ejs");
+});
+
 // Trang chu
 router.get('/trang-chu', function(req, res, next) {
   res.render('trang-chu.ejs')
@@ -23,7 +29,10 @@ router.post('/dang-nhap', function(req, res, next) {
       let pass_fromdb = user.password;
       
       if(pass_fromdb == p)
+      {
+        
         res.render('trang-chu.ejs')
+      }
       else
         res.render('dang-nhap.ejs')     
   });
@@ -94,5 +103,9 @@ router.get('/dang-xuat', function(req, res, next) {
   res.redirect("/users/dang-nhap");
 });
 
+// Tai khoan
+router.get('/tai-khoan', function(req, res, next) {
+  res.render("my-account");
+});
 
 module.exports = router;
