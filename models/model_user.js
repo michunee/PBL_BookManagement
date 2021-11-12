@@ -11,3 +11,16 @@ exports.checkEmail = (email) => {
         }
     )
 }
+
+exports.checkPassword = (password) => {
+    return new Promise( (hamOK, hamLoi) => {
+        let sql = `SELECT * FROM user WHERE password = '${password}'`;
+        db.query(sql, (err, d) => {
+            console.log('List success');
+            data = d[0];
+            hamOK(data);
+        })
+        }
+    )
+}
+

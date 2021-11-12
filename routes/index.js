@@ -6,4 +6,11 @@ router.get('/', function(req, res, next) {
   res.render('dang-nhap.ejs');
 });
 
+router.get('/gio-hang/', async function(req, res, next) {
+  res.render('gio-hang.ejs');
+})
+
+router.get('/thanh-toan', function(req, res, next) {
+  res.render('thanh-toan.ejs');
+})
 module.exports = router;
