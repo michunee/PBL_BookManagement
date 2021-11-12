@@ -12,9 +12,9 @@ exports.checkEmail = (email) => {
     )
 }
 
-exports.getUser = (id) => {
+exports.checkPassword = (password) => {
     return new Promise( (hamOK, hamLoi) => {
-        let sql = `SELECT * FROM user WHERE idUser = '${id}'`;
+        let sql = `SELECT * FROM user WHERE password = '${password}'`;
         db.query(sql, (err, d) => {
             console.log('List success');
             data = d[0];

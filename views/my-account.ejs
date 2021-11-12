@@ -85,7 +85,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
-                        <a class="nav-link active" id="dashboard-nav" data-toggle="pill" href="#dashboard-tab" role="tab"><i class="fa fa-tachometer-alt"></i>Chào </a>
+                        <a class="nav-link active" id="dashboard-nav" data-toggle="pill" href="#dashboard-tab" role="tab"><i class="fa fa-tachometer-alt"></i>Chào <%=user.ten%></a>
                         <a class="nav-link" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i class="fa fa-shopping-bag"></i>Đơn Hàng</a>
                         <a class="nav-link" id="account-nav" data-toggle="pill" href="#account-tab" role="tab"><i class="fa fa-user"></i>Chi Tiết Tài Khoản</a>
                     </div>
@@ -93,8 +93,8 @@
                 <div class="col-md-9">
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="dashboard-tab" role="tabpanel" aria-labelledby="dashboard-nav">
-                            <h4> Chào <%=user.ten%>
-                                
+                            <h4> Chào
+                                <%=user.ten%>
                             </h4>
                             <p>
                                 Đây là trang quản lý tài khoản của bạn.
