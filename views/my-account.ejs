@@ -93,7 +93,7 @@
                 <div class="col-md-9">
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="dashboard-tab" role="tabpanel" aria-labelledby="dashboard-nav">
-                            <h4> Chào
+                            <h4> Chào <%=user.ten%>
                                 
                             </h4>
                             <p>
@@ -108,23 +108,23 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label for="ho">Họ</label>
-                                        <input id="ho" name="ho" value="" class="form-control" type="text" placeholder="Họ">
+                                        <input id="ho" name="ho" value="<%=user.ho%>" class="form-control" type="text" placeholder="Họ">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="ten">Tên</label>
-                                        <input id="ten" name="ten" value="" class="form-control" type="text" placeholder="Tên">
+                                        <input id="ten" name="ten" value="<%=user.ten%>" class="form-control" type="text" placeholder="Tên">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="phone">Số điện thoại</label>
-                                        <input id="phone" name="phone" value="" class="form-control" type="text" placeholder="Số Điện Thoại">
+                                        <input id="phone" name="phone" value="<%=user.phone%>" class="form-control" type="text" placeholder="Số Điện Thoại">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="email">Email</label>
-                                        <input id="email" name="email" value="" class="form-control" type="text" placeholder="Email">
+                                        <input id="email" name="email" value="<%=user.email%>" class="form-control" type="text" placeholder="Email">
                                     </div>
                                     <div class="col-md-12">
                                         <label for="address">Địa chỉ</label>
-                                        <input name="address" value="" class="form-control" type="text" placeholder="Địa Chỉ">
+                                        <input name="address" value="<%=user.address%>" class="form-control" type="text" placeholder="Địa Chỉ">
                                     </div>
                                     <div class="col-md-12">
                                         <button class="btn">Cập Nhật Tài Khoản</button>

@@ -7,7 +7,9 @@ const bcrypt = require("bcrypt");
 
 /* GET users listing. */
 router.get('/tai-khoan', function(req, res, next) {
-  res.render("my-account.ejs");
+  if (req.session.User) {
+    res.render("my-account.ejs", { user: req.session.User });
+  }
 });
 
 // Trang chu
@@ -30,7 +32,15 @@ router.post('/dang-nhap', function(req, res, next) {
       
       if(pass_fromdb == p)
       {
-        
+        req.session.User = {
+          id: user.idUser,
+          username: user.username,
+          ho: user.ho,
+          ten: user.ten,
+          phone: user.phone,
+          email: user.email,
+          address: user.address
+      };
         res.render('trang-chu.ejs')
       }
       else
