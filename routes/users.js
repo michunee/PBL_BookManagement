@@ -12,10 +12,6 @@ router.get('/tai-khoan', function(req, res, next) {
   }
 });
 
-// Trang chu
-router.get('/trang-chu', function(req, res, next) {
-  res.render('trang-chu.ejs')
-});
 
 // Dang nhap 
 router.post('/dang-nhap', function(req, res, next) {
@@ -41,7 +37,7 @@ router.post('/dang-nhap', function(req, res, next) {
           email: user.email,
           address: user.address
         };
-        res.render('trang-chu.ejs')
+        res.redirect("/san-pham/trang-chu");
       }
       else
         res.render('dang-nhap.ejs')     
@@ -68,7 +64,7 @@ router.post('/luu', function(req, res, next) {
   let rp = req.body.retypePassword;
   let address = req.body.address;
 
-  if (p === rp && p != "") {
+  if (p === rp && p != "" && u!="" && ho!="" && ten!="" && em!="" && phone!="" && address!="") {
 
       let user_info = { ho: ho, ten: ten, email: em, username: u, password: p, phone: phone, address: address };
 
@@ -131,7 +127,7 @@ router.post('/doi-mat-khau', function(req, res, next) {
       let user = rows[0];
       let pass_fromdb = user.password;
       if (pass_fromdb == password) {
-          if (newPassword === confirmPassword) {
+          if (newPassword === confirmPassword && password != "" && confirmPassword != "") {
               let sql2 = `UPDATE user SET password='${newPassword}' WHERE username LIKE '%${u}%'`;
               db.query(sql2, (err, result) => {
                   console.log('Update success');
@@ -159,9 +155,9 @@ router.post('/update', function(req, res, next) {
   let address = req.body.address;
   let u = req.session.User.username;
 
-  if(ho==""||ten==""||em==""||phone==""||ho=="")
+  if(ho==""||ten==""||em==""||phone==""||address=="")
   {
-    let mess = "Vui lòng nhập đầy đủ thông tin thay đổi!";
+    let mess = "Vui lòng nhập đầy đủ thông tin thay đổi!"
     res.render('thong-bao-thay-doi', { message: mess })
   }
   else{
