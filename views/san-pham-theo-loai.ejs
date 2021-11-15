@@ -72,9 +72,11 @@
     <div class="breadcrumb-wrap">
         <div class="container-fluid">
             <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="/san-pham/trang-chu">Home</a></li>
                 <li class="breadcrumb-item"><a href="#">Sản phẩm</a></li>
-                
+                <li class="breadcrumb-item active">
+                    <%=breadcrumb%>
+                </li>
             </ul>
         </div>
     </div>
@@ -125,9 +127,10 @@
                             </div>
                         </div>
 
+                        <!-- danh sách sản phẩm theo loại đc nhúng tại đây -->
                         <div class="col-md-12">
                             <div id="myTable" class="row">
-                                <%- include('danh-sach-san-pham') %>
+                                
                             </div>
                         </div>
 
@@ -229,6 +232,90 @@
 </html>
 
 <script>
+
+const xuLyDuLieu = (data, id) => {
+        const sp_theo_loai = document.getElementById("myTable");
+        let str = ``;
+        for (i in data) {
+            let product = data[i];
+            console.log(product);
+            let newName = replaceNameProduct(product.nameProduct).toLowerCase();
+
+            str +=
+                `<div class="col-md-4">
+                <div class="product-item">
+                    <div class="product-title">
+                        <a class="slug" href="/san-pham/${newName}">${product.nameProduct}</a>
+                        <div class="ratting">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="product-image">
+                        <a href="/san-pham/${replaceNameProduct(product.nameProduct)}">
+                            <img src="../${product.imgProduct}" alt="Product Image" width="100%">
+                        </a>
+                        <div class="product-action">
+                            <a href="#"><i class="fa fa-cart-plus"></i></a>
+                            <a href="#"><i class="fa fa-heart"></i></a>
+                            <a class="slug" href="/san-pham/${newName}"><i class="fa fa-search"></i></a>
+                        </div>
+                    </div>
+                    <div class="product-price">
+                        <h3>${product.priceProduct.toLocaleString('vi-VN')}<span> ₫</span></h3>
+                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Mua Ngay</a>
+                    </div>
+                </div>
+            </div>`;
+        }
+        sp_theo_loai.innerHTML += str;
+    }
+
+    var paramsString = window.location.href;
+    var index = paramsString.lastIndexOf('c/') + 2;
+    console.log(index)
+    var ten_danh_muc = paramsString.slice(index);
+    console.log(ten_danh_muc);
+
+    window.fetch(`http://localhost:3000/danh-muc/api/${ten_danh_muc}`)
+        .then(res => {
+            return res.json();
+        })
+        .then(data => {
+            console.log(data);
+            xuLyDuLieu(data);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+
+
+    function xoa_dau(str) {
+        str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+        str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+        str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+        str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+        str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+        str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+        str = str.replace(/đ/g, "d");
+        str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "a");
+        str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "e");
+        str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "i");
+        str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "o");
+        str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "u");
+        str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "y");
+        str = str.replace(/Đ/g, "d");
+        str = str.split(' ').join('-');
+        return str;
+    }
+
+    function replaceNameProduct(nameProduct) {
+        var newNameProduct = xoa_dau(nameProduct);
+        return newNameProduct;
+    }
     // Search Product
     $(document).ready(function() {
         $("#myInput").on("keyup", function() {
