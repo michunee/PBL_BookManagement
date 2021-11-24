@@ -1,21 +1,34 @@
 var db = require('./database'); //nhúng model database vào đế kết nối db
-var dataList=[]; // biến để chứa dữ liệu đổ về cho controller
+var list=[]; // biến để chứa dữ liệu đổ về cho controller
 var dataName = [];
 
 // định nghĩa các hàm để tương tác vào mysql
-exports.list = () => {
-
-    return new Promise( (hamOK, hamLoi) => {
+exports.list = async()=>{
+    return new Promise((hamOK, hamloi) => {
         let sql = "SELECT * FROM product";
         db.query(sql, (err, d) => {
-            console.log('List success');
-            dataList = d;
-            hamOK(dataList);
+            if (err) console.log(err);
+            else
+            {
+                list = d;
+                hamOK(list);
+            }
         })
-        }
-    )
+    })
 }
-exports.detail = (idProduct) => {
+
+exports.listbyID = (idProduct) =>{
+    return new Promise((hamOK, hamloi) => {
+        let sql = "SELECT * FROM product WHERE idProduct = " + idProduct;
+        db.query(sql, (err, d) => {
+            console.log("List success");
+            list = d;
+            hamOK(list);
+        })
+    })
+}
+
+exports.detail = async (idProduct) => {
 
     return new Promise( (hamOK, hamLoi) => {
         let sql = `SELECT * FROM product WHERE idProduct=${idProduct}`;
@@ -47,6 +60,50 @@ exports.detailByName = (name) => {
             
         }
     )
+}
+
+exports.addBook = function(nameProduct, authorProduct, priceProduct, amountProduct, desProduct, imgProduct, idCat, showHide)
+{
+    let data = {
+        nameProduct : nameProduct,
+        authorProduct : authorProduct,
+        amountProduct: amountProduct,
+        imgProduct : imgProduct,
+        priceProduct: priceProduct,
+        desProduct: desProduct,
+        idCat : idCat,
+        showHide: showHide
+    };
+    let sql = "INSERT INTO product SET ?";
+    let query = db.query(sql, data, (err, result) =>{
+        console.log("Add book success");
+    });
+}
+
+exports.editBook = function(idProduct, nameProduct, authorProduct, priceProduct, amountProduct, desProduct, imgProduct, idCat, showHide)
+{
+    let data = {
+        nameProduct : nameProduct,
+        authorProduct : authorProduct,
+        amountProduct: amountProduct,
+        imgProduct : imgProduct,
+        priceProduct: priceProduct,
+        desProduct: desProduct,
+        idCat : idCat,
+        showHide: showHide
+    };
+    let sql = "UPDATE product SET ? WHERE idProduct = " + idProduct;
+    let query = db.query(sql, data, (err, result) =>{
+        console.log("Update book success");
+    });
+}
+
+exports.delete = function(idProduct)
+{
+    let sql = "DELETE FROM product WHERE idProduct = " + idProduct;
+    let query = db.query(sql, (err, result) => {
+        console.log('DELETE success');
+    })
 }
 
 function xoa_dau(str) {

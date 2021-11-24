@@ -2,48 +2,13 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title>BOOK MANAGEMENT</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="eCommerce HTML Template Free Download" name="keywords">
-    <meta content="eCommerce HTML Template Free Download" name="description">
-    
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="../img/favicon.ico">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
-
-    <!-- CSS Libraries -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="../lib/slick/slick.css" rel="stylesheet">
-    <link href="../lib/slick/slick-theme.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
-    <link href="../css/style.css" rel="stylesheet">
+    <%- include('header')%>
 </head>
 
 <body style="background-image: url('../img/background2.jpg');">
 
     <!-- Nav Bar Start -->
-    <div class="nav">
-        <div class="container-fluid">
-            <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                    <div class="navbar-nav mr-auto">
-                        <a href="/users/trang-chu" class="nav-item nav-link active">Trang Chủ</a>
-                        <a href="/gio-hang" class="nav-item nav-link">Giỏ Hàng</a>
-                        <a href="/thanh-toan" class="nav-item nav-link">Thanh toán</a>
-                        <a href="" class="nav-item nav-link">Tài khoản của bạn</a>
-                        <a href="/users/dang-xuat" class="nav-item nav-link">Đăng xuất</a>
-                        </div>
-                    </div>
-
-                </div>
-            </nav>
-        </div>
-    </div>
+    <%- include('NavBarStart')%>
     <!-- Nav Bar End -->
 
      <!-- Bottom Bar Start -->
@@ -82,7 +47,7 @@
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="category-tab" role="tabpanel" aria-labelledby="orders-nav">
                             <div class="table-responsive">
-                                <form action="/book/addnew" method="get">
+                                <form action="/sach/them-the-loai" method="get">
                                     <div class="col-md-12">
                                         <button class="btn" style="text-align: right;">Thêm thể loại</button>
                                         <br><br>
@@ -103,7 +68,7 @@
                                                 <td><%= i.idCat %></td>
                                                 <td><%= i.nameCat%></td>
                                                 <td><%= i.number %></td>
-                                                <td><a href="/book/detail <%= i.idCat %>" class="btn" type="button">Edit</a><a href="/book/delete/<%= i.idCat %>" class="btn" type="button">Delete</a></td>
+                                                <td><a href="/sach/chi-tiet-the-loai<%= i.idCat %>" class="btn" type="button">Edit</a><a href="/sach/xoa-the-loai/<%= i.idCat %>" class="btn" type="button">Delete</a></td>
                                             </tr>
                                         <% } %>
                                     </tbody>
@@ -111,7 +76,8 @@
                                 <% if(detail != null)
                                 { %>
                                     <h4>Chỉnh sửa thể loại</h4>
-                                        <form action="/book/edit-category" method="post">
+                                        <form action="/sach/chinh-sua-the-loai?_method=PUT" method="post">
+                                            <input type="hidden" name="_method" value="PUT">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <label for="idCat">Mã thể loại</label>
@@ -135,7 +101,7 @@
                                     else
                                     { %>
                                         <h4>Thêm thể loại mới</h4>
-                                        <form action="/book/add-new-category" method="post">
+                                        <form action="/sach/them-the-loai" method="post">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <label for="nameCat">Tên thể loại</label>
@@ -149,13 +115,45 @@
                                                     <button class="btn">Thêm</button>
                                                     <br><br>
                                                 </div>
+                                                <% if(message != null)
+                                                {%>
+                                                    <span id="lblErr" style="color:Red;font-weight:bold; text-align: center;"><%=message%></span>
+                                                <%} %>
                                             </div>
                                         </form>
                                     <% } %>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="product-tab" role="tabpanel" aria-labelledby="account-nav">
-            
+                            <div class="col-md-12">
+                                <div id="myTable" class="row">
+                                    <div class="col-md-12">
+                                        <a href="/sach/them-sach"  class="btn" type="button">Thêm sách</a>
+                                        <br><br>
+                                    </div>
+                                    <% for (product of listPro) { %>
+                                        <div class="col-md-4">
+                                            <div class="product-item">
+                                                <div class="product-title">
+                                                    <a class="slug"><%=product.nameProduct%></a>
+                                                </div>
+                                                <div class="product-image">
+                                                    <a href="product-detail.html">
+                                                        <img src="../<%=product.imgProduct%>" alt="Product Image">
+                                                    </a>
+                                                    <div class="product-action">
+                                                        <a href="/sach/chi-tiet-sach<%=product.idProduct%>" class="btn" type="button" style="width: 60px;">Chi tiết</a>
+                                                        <a href="/sach/xoa-sach/<%=product.idProduct%>/<%=product.idCat%>" class="btn" type="button" style="width: 60px;">Xoá</a>
+                                                    </div>
+                                                </div>
+                                                <div class="product-price">
+                                                    <h3><%=product.priceProduct.toLocaleString('vi-VN')%><span> ₫</span></h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <% } %>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
