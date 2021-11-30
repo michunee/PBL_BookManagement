@@ -11,6 +11,8 @@ var usersRouter = require('./routes/users');
 var catalogRouter = require('./routes/catalog');
 var productRouter = require('./routes/product');
 var catalogadminRouter = require('./routes/catalog_admin');
+var cartRouter = require('./routes/cart');
+var thanhtoanRouter = require('./routes/thanhtoan');
 
 const methodOverride = require('method-override');
 
@@ -35,6 +37,8 @@ app.use('/users', usersRouter);
 app.use('/danh-muc', catalogRouter);
 app.use('/san-pham', productRouter);
 app.use('/sach', catalogadminRouter);
+app.use('/gio-hang', cartRouter);
+app.use('/thanh-toan', thanhtoanRouter);
 
 
 // catch 404 and forward to error handler
