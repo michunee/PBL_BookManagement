@@ -33,7 +33,7 @@
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto">
                         <a href="/san-pham/trang-chu" class="nav-item nav-link active">Trang Chủ</a>
-                        <a href="/gio-hang" class="nav-item nav-link">Giỏ Hàng</a>
+                        <a href="/gio-hang/" class="nav-item nav-link">Giỏ Hàng</a>
                         <a href="/thanh-toan" class="nav-item nav-link">Thanh toán</a>
                         <a href="/users/tai-khoan" class="nav-item nav-link">Tài khoản của bạn</a>
                         <a href="/users/dang-xuat" class="nav-item nav-link">Đăng xuất</a>
@@ -89,19 +89,19 @@
                             <h2>Thông Tin Đặt Hàng</h2>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <input class="form-control" type="text" placeholder="Họ">
+                                    <input class="form-control" type="text" value="<%=user.ho%>" placeholder="Họ">
                                 </div>
                                 <div class="col-md-6">
-                                    <input class="form-control" type="text" placeholder="Tên">
+                                    <input class="form-control" type="text" value="<%=user.ten%>" placeholder="Tên">
                                 </div>
                                 <div class="col-md-6">
-                                    <input class="form-control" type="text" placeholder="E-mail">
+                                    <input class="form-control" type="text" value="<%=user.email%>" placeholder="E-mail">
                                 </div>
                                 <div class="col-md-6">
-                                    <input class="form-control" type="text" placeholder="Số điện thoại">
+                                    <input class="form-control" type="text" value="<%=user.phone%>" placeholder="Số điện thoại">
                                 </div>
                                 <div class="col-md-12">
-                                    <input class="form-control" type="text" placeholder="Địa chỉ giao hàng">
+                                    <input class="form-control" type="text" value="<%=user.address%>" placeholder="Địa chỉ giao hàng">
                                 </div>
                             </div>
                         </div>
@@ -111,16 +111,27 @@
                     <div class="checkout-inner">
                         <div class="checkout-summary">
                             <h1>Tổng Giỏ Hàng</h1>
-                            <p>Tên sản phẩm<span>1.000.000 đ</span></p>
-                            <p class="sub-total">Tạm tính<span>1.000.000 đ</span></p>
-                            <p class="ship-cost">Phí ship<span>30.000 đ</span></p>
-                            <h2>Tổng cộng<span>1.030.000 đ</span></h2>
+                            <%if(bill != null) {%>
+                            <p>Tổng tiền sản phẩm<span><%=bill.totalProduct%></span></p>
+                            <p class="ship-cost">Phí ship<span><%=bill.ship%></span></p>
+                            <p class="sub-total">Giảm giá<span><%=bill.discount%></span></p>
+                            
+                            <h2>Tổng cộng<span><%=bill.total%></span></h2>
+                            <%} else {%>
+                            <p>Tổng tiền sản phẩm<span></span></p>
+                            <p class="ship-cost">Phí ship<span></span></p>
+                            <p class="sub-total">Giảm giá<span></span></p>
+                            
+                            <h2>Tổng cộng<span></span></h2>
+                            <%}%>
                         </div>
 
                         <div class="checkout-payment">
                             
                             <div class="checkout-btn">
-                                <button>Đặt Hàng</button>
+                                <form action="/thanh-toan/dat-hang" method="post">
+                                    <button>Đặt Hàng</button>
+                                </form>
                             </div>
                         </div>
                     </div>
