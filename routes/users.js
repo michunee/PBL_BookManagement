@@ -40,7 +40,7 @@ router.post('/dang-nhap', function(req, res, next) {
         res.redirect("/san-pham/trang-chu");
       }
       else
-        res.render('dang-nhap.ejs')     
+        res.render('dang-nhap.ejs')  
   });
 });
 
@@ -120,7 +120,6 @@ router.post('/doi-mat-khau', function(req, res, next) {
   let newPassword = req.body.newPassword;
   let confirmPassword = req.body.confirmPassword;
   let u = req.session.User.username;
-  console.log(u)
   let sql = 'SELECT * FROM user WHERE username = ?';
   db.query(sql, [u], (err, rows) => {
       if (rows.length <= 0) { res.redirect("/users/error"); return; }

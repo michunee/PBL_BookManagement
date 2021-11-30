@@ -9,7 +9,11 @@
     <meta content="eCommerce HTML Template Free Download" name="description">
     
     <!-- Favicon -->
+<<<<<<< HEAD
     <link rel="shortcut icon" href="img/favicon.ico">
+=======
+    <link rel="shortcut icon" href="../img/favicon.ico">
+>>>>>>> khoi
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
@@ -24,6 +28,7 @@
     <link href="../css/style.css" rel="stylesheet">
 </head>
 
+<<<<<<< HEAD
 <body style="background-image: url('../img/background.jpg');">
 
     <!-- Login Start -->
@@ -56,14 +61,291 @@
                             </div>
                         </form>
                         <a href="/users/dang-ky">Chưa có tài khoản? Đăng ký</a>
+=======
+<body style="background-image: url('../img/background2.jpg');">
+
+    <!-- Nav Bar Start -->
+    <div class="nav">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav mr-auto">
+                        <a href="/san-pham/trang-chu" class="nav-item nav-link active">Trang Chủ</a>
+                        <a href="/gio-hang" class="nav-item nav-link">Giỏ Hàng</a>
+                        <a href="/thanh-toan" class="nav-item nav-link">Thanh toán</a>
+                        <a href="/users/tai-khoan" class="nav-item nav-link">Tài khoản của bạn</a>
+                        <a href="/sach/" class="nav-item nav-link">Quản lý</a>
+                        <a href="/users/dang-xuat" class="nav-item nav-link">Đăng xuất</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Nav Bar End -->
+
+     <!-- Bottom Bar Start -->
+     <div class="bottom-bar">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-md-3">
+                    <div class="logo">
+                        <a href="../users/trang-chu">
+                            <img src="../img/favicon.ico" alt="Logo">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="search">
+                        <input type="text" placeholder="Search">
+                        <button><i class="fa fa-search"></i></button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Bottom Bar End -->
+
+    <!-- My Account Start -->
+    <div class="my-account">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
+                        <a class="nav-link" id="dashboard-nav" data-toggle="pill" href="#category-tab" role="tab"><i class="fa fa-tachometer-alt"></i>Thể loại</a>
+                        <a class="nav-link active" id="account-nav" data-toggle="pill" href="#product-tab" role="tab"><i class="fa fa-user"></i>Kho Sách</a>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="tab-content">
+                        <div class="tab-pane fade" id="category-tab" role="tabpanel" aria-labelledby="orders-nav">
+                            <div class="table-responsive">
+                                <form action="/sach/them-the-loai" method="get">
+                                    <div class="col-md-12">
+                                        <button class="btn" style="text-align: right;">Thêm thể loại</button>
+                                        <br><br>
+                                    </div>
+                                </form>
+                                <table class="table table-bordered">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Thể loại</th>
+                                            <th>Số lượng</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% for (let i of list) { %>
+                                            <tr>
+                                                <td><%= i.idCat %></td>
+                                                <td><%= i.nameCat%></td>
+                                                <td><%= i.number %></td>
+                                                <td><a href="/sach/chi-tiet-the-loai <%= i.idCat %>" class="btn" type="button">Edit</a><a href="/sach/xoa-the-loai/<%= i.idCat %>" class="btn" type="button">Delete</a></td>
+                                            </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                                <% if(detail != null)
+                                { %>
+                                    <h4>Chỉnh sửa thể loại</h4>
+                                        <form action="/sach/chinh-sua-the-loai?_method=PUT" method="post">
+                                            <input type="hidden" name="_method" value="PUT">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="idCat">Mã thể loại</label>
+                                                    <input id="idCat" name="idCat" value="<%=detail.idCat %>" class="form-control" type="text" placeholder="Mã thể loại" read>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="nameCat">Tên thể loại</label>
+                                                    <input id="nameCat" name="nameCat" value="<%=detail.nameCat %>" class="form-control" type="text" placeholder="Tên thể loại">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="number">Số lượng</label>
+                                                    <input id="number" name="number" value="<%=detail.number %>" class="form-control" type="text" placeholder="Số lượng">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <button class="btn">Sửa</button>
+                                                    <br><br>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    <% }
+                                    else
+                                    { %>
+                                        <h4>Thêm thể loại mới</h4>
+                                        <form action="/sach/them-the-loai" method="post">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="nameCat">Tên thể loại</label>
+                                                    <input id="nameCat" name="nameCat" value="" class="form-control" type="text" placeholder="Tên thể loại">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="number">Số lượng</label>
+                                                    <input id="number" name="number" value="" class="form-control" type="text" placeholder="Số lượng">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <button class="btn">Thêm</button>
+                                                    <br><br>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    <% } %>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade show active" id="product-tab" role="tabpanel" aria-labelledby="account-nav">
+                            <div class="col-md-12">
+                                <% if(show != null)
+                                {
+                                    if(show == "add")
+                                    { %>
+                                        <h4>Thêm sách mới</h4>
+                                        <form action="/sach/them-sach" method="post" enctype="multipart/form-data">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="nameProduct">Tên sách</label>
+                                                    <input id="nameProduct" name="nameProduct" value="" class="form-control" type="text" placeholder="Tên sách">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="authorProduct">Tên tác giả</label>
+                                                    <input id="authorProduct" name="authorProduct" value="" class="form-control" type="text" placeholder="Tên tác giả">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="idCat">Thể loại</label>
+                                                    <select name="idCat" id="idCat" class="form-control">
+                                                        <% for(let value of list) { %>
+                                                            <option value="<%=value.idCat%>"><%=value.nameCat%></option>
+                                                        <%}%>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="amountProduct">Số lượng</label>
+                                                    <input id="amountProduct" name="amountProduct" value="" class="form-control" type="text" placeholder="Số lượng">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="priceProduct">Giá tiền</label>
+                                                    <input id="priceProduct" name="priceProduct" value="" class="form-control" type="text" placeholder="Giá tiền">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="upload_image">Hình ảnh</label>
+                                                    <input id="upload_image" name="upload_image" value="" class="form-control" type="file" placeholder="Hình ảnh">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <label for="desProduct">Mô tả</label>
+                                                    <textarea id="desProduct" name="desProduct" value="" class="form-control"  placeholder="Mô tả" rows="4" cols="1">
+                                                    </textarea>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <button class="btn">Thêm</button>
+                                                    <br><br>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    <%}
+                                    else {%>
+                                        <h4>Chỉnh sửa thông tin sách </h4>
+                                        <form action="/sach/chinh-sua-sach/<%=detailPro.idProduct%>?_method=PUT" method="post" enctype="multipart/form-data" name="editForm">
+                                            <input type="hidden" name="_method" value="PUT">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="idProduct">Mã sách </label>
+                                                    <input id="idProduct" name="idProduct" value="<%=detailPro.idProduct%>" class="form-control" type="text" placeholder="Mã sách" readonly>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="nameProduct">Tên sách</label>
+                                                    <input id="nameProduct" name="nameProduct" value="<%=detailPro.nameProduct%>" class="form-control" type="text" placeholder="Tên sách">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="authorProduct">Tên tác giả</label>
+                                                    <input id="authorProduct" name="authorProduct" value="<%=detailPro.authorProduct%>" class="form-control" type="text" placeholder="Tên tác giả">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="idCat">Thể loại</label>
+                                                    <select name="idCat" id="idCat" class="form-control">
+                                                        <option value="<%=detailPro.idCat%>" selected enabled><%=nameCatalog%></option> 
+                                                        <% for(let value of list) { if(value.idCat != detailPro.idCat) {%>
+                                                            <option value="<%=value.idCat%>"><%=value.nameCat%></option>
+                                                        <%}}%>
+                                                    </select>
+                                                    <script language="">
+                                                        function myGeeks() {
+                                                            document.getElementById("idCat").value = detailPro.idCat;
+                                                            console.log(detailPro.idCat);
+                                                        }
+                                                    </script>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="amountProduct">Số lượng</label>
+                                                    <input id="amountProduct" name="amountProduct" value="<%=detailPro.amountProduct%>" class="form-control" type="text" placeholder="Số lượng">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="priceProduct">Giá tiền</label>
+                                                    <input id="priceProduct" name="priceProduct" value="<%=detailPro.priceProduct%>" class="form-control" type="text" placeholder="Giá tiền">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="upload_image">Hình ảnh</label>
+                                                    <img src="../<%=detailPro.imgProduct%> " alt="" style="display: block; width: 109px; height: 159px;">
+                                                    <input id="upload_image" name="upload_image" value="<%=detailPro.imgProduct%>" class="form-control" type="file" placeholder="Hình ảnh">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <label for="desProduct">Mô tả</label>
+                                                    <textarea id="desProduct" name="desProduct" value="<%=detailPro.desProduct%>" class="form-control"  placeholder="Mô tả" rows="4" cols="1">
+                                                        <%=detailPro.desProduct%>
+                                                    </textarea>
+                                                </div>
+                                                <div class="col-md-12" >
+                                                    <button class="btn" style="width: 80px;">Sửa</button>
+                                                    <a href="/sach/xoa-sach/<%=detailPro.idProduct%>/<%=detailPro.idCat%>" class="btn" type="button" style="width: 80px;">Xoá</a>
+                                                    <br><br>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    <%}
+                                } else { %>
+                                    <div id="myTable" class="row">
+                                        <div class="col-md-12">
+                                            <a href="/sach/them-sach"  class="btn" type="button">Thêm sách</a>
+                                            <br><br>
+                                        </div>
+                                        <% for (product of listPro) { %>
+                                            <div class="col-md-4">
+                                                <div class="product-item">
+                                                    <div class="product-title">
+                                                        <a class="slug"><%=product.nameProduct%></a>
+                                                    </div>
+                                                    <div class="product-image">
+                                                        <a href="product-detail.html" style="display: flex;">
+                                                            <img src="../<%=product.imgProduct%>" alt="Product Image">
+                                                        </a>
+                                                        <div class="product-action">
+                                                            <a href="/sach/chi-tiet-sach <%=product.idProduct%>" class="btn" type="button" style="width: 60px;">Chi tiết</a>
+                                                            <a href="/sach/xoa-sach/<%=product.idProduct%>/<%=product.idCat%>" class="btn" type="button" style="width: 60px;">Xoá</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-price">
+                                                        <h3><%=product.priceProduct.toLocaleString('vi-VN')%><span> ₫</span></h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <% } %>
+                                    </div>
+                                <%} %>
+                            </div>
+                        </div>
+>>>>>>> khoi
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<<<<<<< HEAD
     <!-- Login End -->
 
 
+=======
+    <!-- My Account End -->
+    
+>>>>>>> khoi
     <!-- Back to Top -->
     <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
@@ -75,6 +357,11 @@
 
     <!-- Template Javascript -->
     <script src="../js/main.js"></script>
+<<<<<<< HEAD
+=======
+
+    
+>>>>>>> khoi
 </body>
 
 </html>
