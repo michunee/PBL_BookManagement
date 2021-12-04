@@ -33,7 +33,9 @@
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto">
                         <a href="/sach/" class="nav-item nav-link">Quản lý kho sách</a>
-                        <a href="" class="nav-item nav-link">Quản lý tài khoản</a>
+                        <a href="/users/quan-ly" class="nav-item nav-link">Quản lý tài khoản</a>
+                        <a href="/users/tai-khoan-admin" class="nav-item nav-link">Tài khoản của bạn</a>
+                        <a href="/users/dang-ky-admin" class="nav-item nav-link">Thêm admin</a>
                         <a href="/users/dang-xuat" class="nav-item nav-link">Đăng xuất</a>
                         </div>
                     </div>
@@ -120,8 +122,7 @@
                                                 </div>
                                                 <div class="col-md-12">
                                                     <label for="desProduct">Mô tả</label>
-                                                    <textarea id="desProduct" name="desProduct" value="" class="form-control"  placeholder="Mô tả" rows="4" cols="1">
-                                                    </textarea>
+                                                    <textarea id="desProduct" name="desProduct" value="" class="form-control"  placeholder="Mô tả" rows="4" cols="1"></textarea>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <button class="btn">Thêm</button>
@@ -177,9 +178,7 @@
                                                 </div>
                                                 <div class="col-md-12">
                                                     <label for="desProduct">Mô tả</label>
-                                                    <textarea id="desProduct" name="desProduct" value="<%=detailPro.desProduct%>" class="form-control"  placeholder="Mô tả" rows="4" cols="1">
-                                                        <%=detailPro.desProduct%>
-                                                    </textarea>
+                                                    <textarea id="desProduct" name="desProduct" value="<%=detailPro.desProduct%>" class="form-control"  placeholder="Mô tả" rows="4" cols="1"><%=detailPro.desProduct%></textarea>
                                                 </div>
                                                 <div class="col-md-12" >
                                                     <button class="btn" style="width: 80px;">Sửa</button>

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <link rel="shortcut icon" href="../img/favicon.ico">
+    <link rel="shortcut icon" href="img/favicon.ico">
 
     <title>BOOK MANAGEMENT</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -36,7 +36,7 @@
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto">
                         <a href="/san-pham/trang-chu" class="nav-item nav-link active">Trang Chủ</a>
-                        <a href="/gio-hang" class="nav-item nav-link">Giỏ Hàng</a>
+                        <a href="/gio-hang/" class="nav-item nav-link">Giỏ Hàng</a>
                         <a href="/thanh-toan" class="nav-item nav-link">Thanh toán</a>
                         <a href="/users/tai-khoan" class="nav-item nav-link">Tài khoản của bạn</a>
                         <a href="/users/dang-xuat" class="nav-item nav-link">Đăng xuất</a>
@@ -107,6 +107,7 @@
                             </div>
                             <div class="col-md-7">
                                 <div class="product-content">
+                                <form action="/gio-hang/them/<%=itemPro.idProduct%>" method="post">
                                     <div class="title">
                                         <h2 id="nameProduct"></h2>
                                     </div>
@@ -126,16 +127,14 @@
                                     </div>
                                     <div class="quantity">
                                         <h4>Số lượng:</h4>
-                                        <div class="qty">
-                                            <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                            <input type="text" value="1">
-                                            <button class="btn-plus"><i class="fa fa-plus"></i></button>
+                                        <div>
+                                            <input id="quantity" type="text" value="1" name="quantity">
                                         </div>
                                     </div>
-                                    
                                     <div class="action">
-                                        <a class="btn" href="/gio-hang/<%=product.nameProduct%>"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
+                                        <Button class="btn">Thêm vào giỏ<i class="fa fa-cart-plus"></i></Button>
                                     </div>
+                                </form>
                                 </div>
                             </div>
                         </div>
@@ -255,7 +254,7 @@
                                                     <img src="../<%=product.imgProduct%>" alt="Product Image">
                                                 </a>
                                             <div class="product-action">
-                                                <a class="slug" href="/san-pham/<%=product.nameProduct%>"><i class="fa fa-cart-plus"></i></a>
+                                                <a href="#"><i class="fa fa-cart-plus"></i></a>
                                                 <a href="#"><i class="fa fa-heart"></i></a>
                                                 <a class="slug" href="/san-pham/<%=product.nameProduct%>"><i class="fa fa-search"></i></a>
                                             </div>
@@ -263,7 +262,7 @@
                                         <div class="product-price">
                                             <h3>
                                                 <%=product.priceProduct.toLocaleString('vi-VN')%><span> ₫</span></h3>
-                                            <a class="btn & slug" href="/san-pham/<%=product.nameProduct%>"><i class="fa fa-shopping-cart"></i>Mua Ngay</a>
+                                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Mua Ngay</a>
                                         </div>
                                     </div>
                                 </div>
@@ -310,7 +309,7 @@
                                                 <img src="../<%=product.imgProduct%>" alt="Product Image">
                                             </a>
                                         <div class="product-action">
-                                            <a class="slug" href="/san-pham/<%=product.nameProduct%>"><i class="fa fa-cart-plus"></i></a>
+                                            <a href="#"><i class="fa fa-cart-plus"></i></a>
                                             <a href="#"><i class="fa fa-heart"></i></a>
                                             <a class="slug" href="/san-pham/<%=product.nameProduct%>"><i class="fa fa-search"></i></a>
                                         </div>
@@ -318,7 +317,7 @@
                                     <div class="product-price">
                                         <h3>
                                             <%=product.priceProduct.toLocaleString('vi-VN')%> <span>₫</span></h3>
-                                        <a class="btn & slug" href="/san-pham/<%=product.nameProduct%>"><i class="fa fa-shopping-cart"></i>Mua Ngay</a>
+                                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Mua Ngay</a>
                                     </div>
                                 </div>
                                 <% } %>
@@ -371,11 +370,9 @@
         }
         desProduct.innerHTML = itemPro.desProduct;
     }
-
     var paramsString = window.location.href;
     var index = paramsString.lastIndexOf('m/') + 2;
     var ten_san_pham = paramsString.slice(index);
-
     window.fetch(`http://localhost:3000/san-pham/api/chi-tiet-san-pham/${ten_san_pham}`)
         .then(res => {
             return res.json();

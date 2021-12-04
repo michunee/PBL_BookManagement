@@ -33,7 +33,7 @@
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto">
                         <a href="/san-pham/trang-chu" class="nav-item nav-link active">Trang Chủ</a>
-                        <a href="/gio-hang" class="nav-item nav-link">Giỏ Hàng</a>
+                        <a href="/gio-hang/" class="nav-item nav-link">Giỏ Hàng</a>
                         <a href="/thanh-toan" class="nav-item nav-link">Thanh toán</a>
                         <a href="/users/tai-khoan" class="nav-item nav-link">Tài khoản của bạn</a>
                         <a href="/users/dang-xuat" class="nav-item nav-link">Đăng xuất</a>
@@ -97,13 +97,81 @@
                                     </tr>
                                 </thead>
                                 <tbody class="align-middle">
-                                    
+                                    <% for (let p of listPro) { %>
+                                        <tr>
+                                            <td>
+                                                <div class="img">
+                                                    <a href="#"><img src="/<%=p.imgProduct%>" alt="Image"></a>
+                                                    <p>
+                                                        <%= p.nameProduct%>
+                                                    </p>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <%=p.priceProduct.toLocaleString()%> đ
+                                            </td>
+                                            <td>
+                                                <div class="qty">
+                                                    <form action="/gio-hang/so-luong/<%=p.idCart%>/<%=p.idProduct%>" method="post">
+                                                        <button class="btn-minus"><i class="fa fa-minus"></i></button>
+                                                        <input id="value" type="text" value="<%=p.quantity%>" name="quantity"> 
+                                                        <button class="btn-plus"><i class="fa fa-plus"></i></button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <%=p.priceProduct.toLocaleString()%> đ
+                                            </td>
+                                            <td>
+                                                <a href="/gio-hang/xoa/<%=p.idCart%>/<%=p.idProduct%>" type="button"><i class="fa fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                        <% } %>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                
+                <div class="col-lg-4">
+                    <div class="cart-page-inner">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="coupon">
+                                    <form action="/gio-hang/sua?_method=PUT" method="post">
+                                        <input type="hidden" name="_method" value="PUT">
+                                        <%if(bill != null) {%>
+                                        <input type="text" name="discount" id="discount" value="<%=bill.discount%>" placeholder="Mã giảm giá">
+                                        <%}else{%>
+                                        <input type="text" name="discount" id="discount" placeholder="Mã giảm giá">
+                                        <%}%>
+                                        <button>Áp dụng</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="cart-summary">
+                                    <div class="cart-content">
+                                        <h1>Thống kê giỏ hàng</h1>
+                                        <%if(bill != null) {%>
+                                        <p>Tổng tiền sản phẩm<span><%=bill.totalProduct.toLocaleString()%></span></p>
+                                        <p>Phí ship<span><%=bill.ship.toLocaleString()%></span></p>
+                                        <h2>Tổng cộng<span><%=bill.total.toLocaleString()%></span></h2> 
+                                    <%} else {%> 
+                                        <p>Tổng tiền sản phẩm<span>0</span></p>
+                                        <p>Phí ship<span><%="35000".toLocaleString()%></span></p>
+                                        <h2>Tổng cộng<span>0</span></h2> 
+                                    <%}%>
+                                        
+                                    </div>
+                                    <div class="cart-btn">
+                                        <form action="/thanh-toan/" method="post">
+                                            <button>Thanh toán</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

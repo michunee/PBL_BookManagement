@@ -12,11 +12,8 @@ router.get('/', async function(req, res, next)
         var listCategory = await modelCatalog.list();
         var listProduct = await modelProduct.list();
         show = null;
-        if(req.session.require != null)
-        {
-            res.render("product-admin.ejs", {list:listCategory, detail:detail, listPro: listProduct, show, message, nameCatalog: nameCatalog});
-        }
-        else res.render("category-admin.ejs", {list:listCategory, detail:detail, listPro: listProduct, show, message, nameCatalog: nameCatalog});
+        
+        res.render("category-admin.ejs", {list:listCategory, detail:detail, listPro: listProduct, show, message, nameCatalog: nameCatalog});
 });
 
 router.get('/chi-tiet-the-loai:id', async function(req, res, next)

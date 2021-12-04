@@ -32,14 +32,13 @@
             <nav class="navbar navbar-expand-md bg-dark navbar-dark">
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto">
-                        <a href="/san-pham/trang-chu" class="nav-item nav-link active">Trang Chủ</a>
-                        <a href="/gio-hang/" class="nav-item nav-link">Giỏ Hàng</a>
-                        <a href="/thanh-toan" class="nav-item nav-link">Thanh toán</a>
-                        <a href="/users/tai-khoan" class="nav-item nav-link">Tài khoản của bạn</a>
+                        <a href="/sach/" class="nav-item nav-link">Quản lý kho sách</a>
+                        <a href="/users/quan-ly" class="nav-item nav-link">Quản lý tài khoản</a>
+                        <a href="/users/tai-khoan-admin" class="nav-item nav-link">Tài khoản của bạn</a>
+                        <a href="/users/dang-ky-admin" class="nav-item nav-link">Thêm admin</a>
                         <a href="/users/dang-xuat" class="nav-item nav-link">Đăng xuất</a>
                         </div>
                     </div>
-
                 </div>
             </nav>
         </div>
@@ -52,7 +51,7 @@
             <div class="row align-items-center">
                 <div class="col-md-3">
                     <div class="logo">
-                        <a href="../san-pham/trang-chu">
+                        <a href="../sach/">
                             <img src="../img/favicon.ico" alt="Logo">
                         </a>
                     </div>
@@ -72,74 +71,69 @@
     <div class="breadcrumb-wrap">
         <div class="container-fluid">
             <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="../san-pham/trang-chu">Home</a></li>
-                <li class="breadcrumb-item"><a href="">Thanh toán</a></li>
+                <li class="breadcrumb-item"><a href="../sach/">Quản lý kho sách</a></li>
+                <li class="breadcrumb-item"><a href="#">Thêm admin</a></li>
+                
             </ul>
         </div>
     </div>
     <!-- Breadcrumb End -->
 
-    <!-- Checkout Start -->
-    <div class="checkout">
+    <!-- Login Start -->
+    <div class="login">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-8">
-                    <div class="checkout-inner">
-                        <div class="billing-address">
-                            <h2>Thông Tin Đặt Hàng</h2>
+                <div class="col-lg-6 mx-auto">
+                    <div class="register-form">
+                        <form action="/users/luu-admin" method="post">
                             <div class="row">
+                                <legend class="text-center">ĐĂNG KÝ</legend>
                                 <div class="col-md-6">
-                                    <input class="form-control" type="text" value="<%=user.ho%>" placeholder="Họ">
+                                    <i class="text-warning"><%= message %></i>
+                                    <label for="ho">Họ</label>
+                                    <input id="ho" name="ho" class="form-control" type="text" placeholder="Họ">
                                 </div>
                                 <div class="col-md-6">
-                                    <input class="form-control" type="text" value="<%=user.ten%>" placeholder="Tên">
-                                </div>
-                                <div class="col-md-6">
-                                    <input class="form-control" type="text" value="<%=user.email%>" placeholder="E-mail">
-                                </div>
-                                <div class="col-md-6">
-                                    <input class="form-control" type="text" value="<%=user.phone%>" placeholder="Số điện thoại">
+                                    <label for="ten">Tên</label>
+                                    <input id="ten" name="ten" class="form-control" type="text" placeholder="Tên">
                                 </div>
                                 <div class="col-md-12">
-                                    <input class="form-control" type="text" value="<%=user.address%>" placeholder="Địa chỉ giao hàng">
+                                    <label for="username">Tên Đăng Nhập</label>
+                                    <input id="username" name="username" class="form-control" type="text" placeholder="Username">
+                                    <i class="text-warning"><%= message1 %></i>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email">E-mail</label>
+                                    <input id="email" name="email" class="form-control" type="text" placeholder="E-mail">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="phone">Số Điện Thoại</label>
+                                    <input id="phone" name="phone" class="form-control" type="text" placeholder="0123456789">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="password">Mật Khẩu</label>
+                                    <input id="password" name="password" class="form-control" type="password" placeholder="Nhập mật khẩu của bạn">
+                                    <i class="text-warning"><%= message2 %></i>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="retype">Nhập Lại Mật Khẩu</label>
+                                    <input id="retype" name="retypePassword" class="form-control" type="password" placeholder="Nhập lại mật khẩu">
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Địa chỉ</label>
+                                    <input name="address" class="form-control" type="text" placeholder="Địa chỉ">
+                                </div>
+                                <div class="col-md-12 text-center">
+                                    <button class="btn">Đăng ký</button>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="checkout-inner">
-                        <div class="checkout-summary">
-                            <h1>Tổng Giỏ Hàng</h1>
-                            <%if(bill != null) {%>
-                            <p>Tổng tiền sản phẩm<span><%=bill.totalProduct%></span></p>
-                            <p class="ship-cost">Phí ship<span><%=bill.ship%></span></p>
-                            <p class="sub-total">Giảm giá<span><%=bill.discount%></span></p>
-                            
-                            <h2>Tổng cộng<span><%=bill.total%></span></h2>
-                            <%} else {%>
-                            <p>Tổng tiền sản phẩm<span></span></p>
-                            <p class="ship-cost">Phí ship<span></span></p>
-                            <p class="sub-total">Giảm giá<span></span></p>
-                            
-                            <h2>Tổng cộng<span></span></h2>
-                            <%}%>
-                        </div>
-
-                        <div class="checkout-payment">
-                            
-                            <div class="checkout-btn">
-                                <form action="/thanh-toan/dat-hang" method="post">
-                                    <button>Đặt Hàng</button>
-                                </form>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Checkout End -->
+    <!-- Login End -->
 
     <!-- Back to Top -->
     <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
