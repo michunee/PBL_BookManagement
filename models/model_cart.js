@@ -154,3 +154,32 @@ exports.DeleteProdcut = function(idCart, idProduct)
         console.log("Delete Product success");
     })
 }
+exports.BillCompletedByIDUser = async function(idUser)
+{
+    return new Promise((hamOK, hamloi) =>{
+        let sql = "SELECT * FROM bill WHERE idUser = " + idUser + " AND status = 1";
+        db.query(sql, (err, result) =>{
+            if(err) console.log(err);
+            else 
+            {
+                data = result;
+                console.log(data);
+                hamOK(data);
+            }
+        })
+    })
+}
+exports.GetBillByIDBill = async function(idBill)
+{
+    return new Promise((hamOK, hamloi) =>{
+        let sql = "SELECT * FROM bill WHERE idBill = " + idBill;
+        db.query(sql, (err, result) =>{
+            if(err) console.log(err);
+            else 
+            {
+                data = result[0];
+                hamOK(data);
+            }
+        })
+    })
+}

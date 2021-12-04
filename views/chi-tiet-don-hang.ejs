@@ -33,7 +33,7 @@
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto">
                         <a href="/san-pham/trang-chu" class="nav-item nav-link active">Trang Chủ</a>
-                        <a href="/gio-hang" class="nav-item nav-link">Giỏ Hàng</a>
+                        <a href="/gio-hang/" class="nav-item nav-link">Giỏ Hàng</a>
                         <a href="/thanh-toan" class="nav-item nav-link">Thanh toán</a>
                         <a href="" class="nav-item nav-link">Tài khoản của bạn</a>
                         <a href="/users/dang-xuat" class="nav-item nav-link">Đăng xuất</a>
@@ -85,14 +85,14 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
-                        <a class="nav-link active" id="dashboard-nav" data-toggle="pill" href="#dashboard-tab" role="tab"><i class="fa fa-tachometer-alt"></i>Chào <%=user.ten%></a>
-                        <a class="nav-link" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i class="fa fa-shopping-bag"></i>Đơn Hàng</a>
+                        <a class="nav-link"  id="dashboard-nav" data-toggle="pill" href="#dashboard-tab" role="tab"><i class="fa fa-tachometer-alt"></i>Chào <%=user.ten%></a>
+                        <a class="nav-link active" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i class="fa fa-shopping-bag"></i>Đơn Hàng</a>
                         <a class="nav-link" id="account-nav" data-toggle="pill" href="#account-tab" role="tab"><i class="fa fa-user"></i>Chi Tiết Tài Khoản</a>
                     </div>
                 </div>
                 <div class="col-md-9">
                     <div class="tab-content">
-                        <div class="tab-pane fade show active" id="dashboard-tab" role="tabpanel" aria-labelledby="dashboard-nav">
+                        <div class="tab-pane fade" id="dashboard-tab" role="tabpanel" aria-labelledby="dashboard-nav">
                             <h4> Chào
                                 <%=user.ten%>
                             </h4>
@@ -100,49 +100,45 @@
                                 Đây là trang quản lý tài khoản của bạn.
                             </p>
                         </div>
-                        <div class="tab-pane fade" id="orders-tab" role="tabpanel" aria-labelledby="orders-nav">
+                        <div class="tab-pane fade show active" id="orders-tab" role="tabpanel" aria-labelledby="orders-nav">
+                            <div class="row">
                             <div class="table-responsive">
                                 <table class="table table-bordered">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th>Mã đơn hàng</th>
-                                            <th>Ngày mua</th>
-                                            <th>Tổng giá sản phẩm</th>
-                                            <th>Tổng tiền thanh toán</th>
-                                            <th>Trạng thái</th>
-                                            <th>Chi tiết</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Giá</th>
+                                            <th>Số lượng</th>
+                                            <th>Tổng</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <%for (let b of bill) {%>
-                                        <tr>
-                                            <td>
-                                                <%=b.idBill%>
-                                            </td>
-                                            <td>
-                                                <%=b.date.getDate()%>/<%=b.date.getMonth()%>/<%=b.date.getFullYear()%>
-                                            </td>
-                                            <td>
-                                                <%=b.totalProduct.toLocaleString()%> đ
-                                            </td>
-                                            <td>
-                                                <%=b.total.toLocaleString()%> đ
-                                            </td>
-                                            <td>
-                                                <%if(b.status == "1") {%>
-                                                    Da thanh toan
-                                                <%} else {%>
-                                                    Chua thanh toan
-                                                    <%}%>
-                                            </td>
-                                            <td><a href="/users/don-hang<%=b.idBill%>" type="button" class="btn">View</a></td>
-                                        </tr>
-                                        <%}%>
+                                    <tbody class="align-middle">
+                                        <% for (let p of listPro) { %>
+                                            <tr>
+                                                <td>
+                                                    <div class="img">
+                                                        <a href="#"><img src="/<%=p.imgProduct%>" alt="Image" height="10%" width="10%"></a>
+                                                        <p>
+                                                            <%= p.nameProduct%>
+                                                        </p>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <%=p.priceProduct.toLocaleString()%> đ
+                                                </td>
+                                                <td>
+                                                    <%=p.quantity%>
+                                                </td>
+                                                <td>
+                                                    <%=p.priceProduct.toLocaleString()%> đ
+                                                </td>
+                                            </tr>
+                                            <% } %>
                                     </tbody>
                                 </table>
                             </div>
+                            </div>
                         </div>
-                        
                         <div class="tab-pane fade" id="account-tab" role="tabpanel" aria-labelledby="account-nav">
                             <h4>Chi Tiết Tài Khoản</h4>
                             <form action="/users/update" method="post">
