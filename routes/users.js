@@ -57,7 +57,7 @@ router.get('/dang-nhap', function(req, res, next) {
 // Dang Ky
 
 router.get('/dang-ky', function(req, res, next) {
-  res.render('dang-ky.ejs', {message : '',message1 : '', message2 : ''})
+  res.render('dang-ky.ejs', {message : '',message1 : '', message2 : '', message3 : ''})
 });
 
 router.post('/luu', function(req, res, next) {
@@ -70,11 +70,18 @@ router.post('/luu', function(req, res, next) {
   let rp = req.body.retypePassword;
   let address = req.body.address;
   let sql = `SELECT * FROM user WHERE username = '${u}'`;
-  
+  let sql1 = `SELECT * FROM user WHERE email = '${em}'`;
   db.query(sql, (err, rows) => {
     if (rows.length > 0) {
-      let mess = "Tên đăng nhập đã có người đặt";
-      res.render('dang-ky.ejs', { message : '',message1 : mess, message2 : '' });
+      let mess = "Tên đăng nhập đã có người dùng!";
+      res.render('dang-ky.ejs', { message : '',message1 : mess, message2 : '', message3 : '' });
+      return;
+    }
+  });
+  db.query(sql1, (err, rows) => {
+    if (rows.length > 0) {
+      let mess = "Email đã có người dùng!";
+      res.render('dang-ky.ejs', { message : '',message1 : '', message2 : mess, message3 : '' });
       return;
     }
     if (p === rp && p != "" && u!="" && ho!="" && ten!="" && em!="" && phone!="" && address!="") {
@@ -88,11 +95,11 @@ router.post('/luu', function(req, res, next) {
     else if(p != rp)
     {
       let mess = "Mật khẩu không trùng khớp!";
-      res.render('dang-ky.ejs', {message : '',message1 : '', message2 : mess});
+      res.render('dang-ky.ejs', {message : '',message1 : '', message2 : '', message3 : mess});
     }
     else {
       let mess = "Vui lòng nhập đầy đủ thông tin!";
-      res.render('dang-ky.ejs', {message : mess,message1 : '', message2 : ''});
+      res.render('dang-ky.ejs', {message : mess,message1 : '', message2 : '', message3 : ''});
     }  
   });
   
@@ -258,7 +265,7 @@ router.get('/quan-ly', async function(req, res, next) {
 });
 
 router.get('/dang-ky-admin', function(req, res, next) {
-  res.render('dang-ky-admin.ejs', {message : '', message1 : '', message2 : ''})
+  res.render('dang-ky-admin.ejs', {message : '', message1 : '', message2 : '',message3 : ''})
 });
 
 router.post('/luu-admin', function(req, res, next) {
@@ -271,12 +278,19 @@ router.post('/luu-admin', function(req, res, next) {
   let rp = req.body.retypePassword;
   let address = req.body.address;
   let sql = `SELECT * FROM user WHERE username = '${u}'`;
-  
-  
+  let sql1 = `SELECT * FROM user WHERE email = '${em}'`;
   db.query(sql, (err, rows) => {
     if (rows.length > 0) {
-      let mess = "Tên đăng nhập đã có người đặt";
-      res.render('dang-ky-admin.ejs', { message : '',message1 : mess, message2 : '' });
+      let mess = "Tên đăng nhập đã có người dùng!";
+      res.render('dang-ky-admin.ejs', { message : '',message1 : mess, message2 : '', message3 : '' });
+      return;
+    }
+  });
+  
+  db.query(sql1, (err, rows) => {
+    if (rows.length > 0) {
+      let mess = "Email đã có người dùng!";
+      res.render('dang-ky-admin.ejs', { message : '', message1 : '', message2 : mess,message3 : '' });
       return;
       
     }
@@ -291,11 +305,11 @@ router.post('/luu-admin', function(req, res, next) {
     else if(p != rp)
     {
       let mess = "Mật khẩu không trùng khớp!";
-      res.render('dang-ky-admin.ejs', {message : '',message1 : '', message2 : mess});
+      res.render('dang-ky-admin.ejs', {message : '', message1 : '', message2 : '',message3 : mess});
     }
     else {
       let mess = "Vui lòng nhập đầy đủ thông tin!";
-      res.render('dang-ky-admin.ejs', {message : mess ,message1 : '', message2 : ''});
+      res.render('dang-ky-admin.ejs', {message : mess ,message1 : '', message2 : '',message3 : ''});
     }  
   });
   
