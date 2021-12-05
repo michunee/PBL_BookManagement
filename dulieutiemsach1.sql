@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 30, 2021 lúc 04:36 PM
+-- Thời gian đã tạo: Th12 05, 2021 lúc 04:50 AM
 -- Phiên bản máy phục vụ: 10.4.21-MariaDB
 -- Phiên bản PHP: 8.0.11
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `dulieutiemsach`
+-- Cơ sở dữ liệu: `dulieutiemsach1`
 --
 
 -- --------------------------------------------------------
@@ -35,23 +35,9 @@ CREATE TABLE `bill` (
   `discount` int(11) DEFAULT 0,
   `ship` double DEFAULT 35000,
   `totalProduct` double NOT NULL DEFAULT 0,
-  `total` double DEFAULT 0
+  `total` double DEFAULT 0,
+  `date` date DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Đang đổ dữ liệu cho bảng `bill`
---
-
-INSERT INTO `bill` (`idBill`, `idCart`, `idUser`, `status`, `discount`, `ship`, `totalProduct`, `total`) VALUES
-(8, 8, 1, 1, 10, 35000, 200000, 211500),
-(9, 9, 1, 1, 5, 35000, 276000, 295450),
-(10, 10, 1, 1, 0, 35000, 275000, 310000),
-(11, 11, 1, 1, 0, 35000, 200000, 235000),
-(12, 12, 1, 1, 0, 35000, 140000, 175000),
-(13, 13, 1, 1, 0, 35000, 720000, 615000),
-(14, 14, 1, 1, 0, 35000, 316000, 210000),
-(15, 15, 1, 1, 0, 35000, 70000, 105000),
-(21, 21, 1, 0, 0, 35000, 365000, 400000);
 
 -- --------------------------------------------------------
 
@@ -65,24 +51,6 @@ CREATE TABLE `cart` (
   `quantity` int(11) NOT NULL,
   `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Đang đổ dữ liệu cho bảng `cart`
---
-
-INSERT INTO `cart` (`idCart`, `idProduct`, `quantity`, `price`) VALUES
-(8, 1, 1, 65000),
-(8, 2, 1, 100000),
-(9, 3, 1, 140000),
-(9, 6, 1, 101000),
-(10, 2, 1, 100000),
-(10, 3, 1, 140000),
-(11, 1, 1, 65000),
-(11, 2, 1, 100000),
-(12, 3, 1, 140000),
-(13, 2, 1, 100000),
-(21, 1, 1, 65000),
-(21, 2, 3, 300000);
 
 -- --------------------------------------------------------
 
@@ -253,7 +221,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`idUser`, `username`, `password`, `email`, `ho`, `ten`, `phone`, `address`, `role`) VALUES
 (1, 'michu', '1', 'khoicari69@gmail.com', 'Nguyễn', 'Khôi', '0902188341', 'Đà Nẵng', 0),
-(2, 'Khoivuong', '1234', 'khoicari69@gmail.com', 'Nguyễn', 'Khôi', '0902188341', 'Da Nang', 0),
+(2, 'Khoivuong', '1', 'khoicari69@gmail.com', 'Nguyễn', 'Khôi', '0902188341', 'Da Nang', 0),
 (3, 'phuongcute', '1234567', 'phuongngok@gmail.com', 'Trần', 'Phương', '0902188341', 'Hải Châu', 0),
 (4, 'longbeo', '1234', 'longbeo@gmail.com', 'Nguyễn', 'Long', '0902188341', 'Hải Châu', 0),
 (5, 'bebi', '1', 'khoicari69@gmail.com', 'Trần', 'Hải', '0902188341', 'Hải Châu', 0),
@@ -261,7 +229,9 @@ INSERT INTO `user` (`idUser`, `username`, `password`, `email`, `ho`, `ten`, `pho
 (7, 'mimi', '123456', 'khoicari69@gmail.com', 'Trần', 'Mi', '2342343242', 'Hải Châu', 0),
 (9, 'muchi', '1', 'khoicari69@gmail.com', 'Chu', 'Mi', '0902188341', 'Hải Châu', 0),
 (10, 'Tuantuan', '1', 'khoicari69@gmail.com', 'Nguyễn', 'Tuấn', '0902188341', 'Hải Châu', 0),
-(11, 'admin', '1', 'khoicari69@gmail.com', 'Nguyễn', 'Khôi', '0902188341', 'Da Nang', 1);
+(11, 'admin', '1', 'khoicari69@gmail.com', 'Nguyễn', 'Khôi', '0902188341', 'Da Nang', 1),
+(12, 'anhtuyet', 'anhtuyet', 'bingando123@gmail.com', 'Nguyen ', 'Tuyet', '0935125585', '2', 1),
+(13, 'anhtuyet1', 'anhtuyet', 'bingando12@gmail.com', 'Nguyen ', 'Tuyet', '0935125585', '2', 0);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -313,13 +283,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT cho bảng `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `idBill` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `idBill` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT cho bảng `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `idCart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `idCart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT cho bảng `catalog`
@@ -343,7 +313,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT cho bảng `user`
 --
 ALTER TABLE `user`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
