@@ -99,6 +99,9 @@
                                         <tr>
                                             <th>Tên đăng nhập</th>
                                             <th>Tên người dùng</th>
+                                            <th>Email</th>
+                                            <th>Số điện thoại</th>
+                                            <th>Địa chỉ</th>
                                             <th>Reset mật khẩu</th>
                                             <th>Xóa</th>
                                         </tr>
@@ -111,6 +114,15 @@
                                                 </td>
                                                 <td>
                                                     <%=client.ho%> <%=client.ten%>
+                                                </td>
+                                                <td>
+                                                    <%=client.email%>
+                                                </td>
+                                                <td>
+                                                    <%=client.phone%>
+                                                </td>
+                                                <td>
+                                                    <%=client.address%>
                                                 </td>
                                                 <td>
                                                     <a href="/users/reset-pass/<%=client.idUser%>" type="button"><i class="fa fa-cloud"></i></a>
@@ -134,6 +146,9 @@
                                         <tr>
                                             <th>Tên đăng nhập</th>
                                             <th>Tên người dùng</th>
+                                            <th>Email</th>
+                                            <th>Số điện thoại</th>
+                                            <th>Địa chỉ</th>
                                             <th>Reset mật khẩu</th>
                                             <th>Xóa</th>
                                         </tr>
@@ -146,6 +161,15 @@
                                                 </td>
                                                 <td>
                                                     <%=admin.ho%> <%=admin.ten%>
+                                                </td>
+                                                <td>
+                                                    <%=admin.email%>
+                                                </td>
+                                                <td>
+                                                    <%=admin.phone%>
+                                                </td>
+                                                <td>
+                                                    <%=admin.address%>
                                                 </td>
                                                 <td>
                                                     <a href="/users/reset-pass/<%=admin.idUser%>" type="button"><i class="fa fa-cloud"></i></a>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 04, 2021 lúc 07:12 PM
+-- Thời gian đã tạo: Th12 05, 2021 lúc 12:15 PM
 -- Phiên bản máy phục vụ: 10.4.21-MariaDB
 -- Phiên bản PHP: 8.0.11
 
@@ -35,21 +35,24 @@ CREATE TABLE `bill` (
   `discount` int(11) DEFAULT 0,
   `ship` double DEFAULT 35000,
   `totalProduct` double NOT NULL DEFAULT 0,
-  `total` double DEFAULT 0
+  `total` double DEFAULT 0,
+  `date` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Đang đổ dữ liệu cho bảng `bill`
 --
 
-INSERT INTO `bill` (`idBill`, `idCart`, `idUser`, `status`, `discount`, `ship`, `totalProduct`, `total`) VALUES
-(22, 22, 1, 1, 0, 35000, 265000, 265000),
-(23, 23, 1, 1, 0, 35000, 400000, 400000),
-(24, 24, 1, 1, 0, 35000, 195000, 195000),
-(25, 25, 1, 1, 0, 35000, 100000, 135000),
-(26, 26, 1, 1, 0, 35000, 292000, 327000),
-(27, 27, 1, 0, 0, 35000, 65000, 65000),
-(28, 28, 28, 0, 0, 35000, 560000, 560000);
+INSERT INTO `bill` (`idBill`, `idCart`, `idUser`, `status`, `discount`, `ship`, `totalProduct`, `total`, `date`) VALUES
+(22, 22, 1, 1, 0, 35000, 265000, 265000, '2021-12-05 10:52:11'),
+(23, 23, 1, 1, 0, 35000, 400000, 400000, '2021-12-05 10:52:11'),
+(24, 24, 1, 1, 0, 35000, 195000, 195000, '2021-12-05 10:52:11'),
+(25, 25, 1, 1, 0, 35000, 100000, 135000, '2021-12-05 10:52:11'),
+(26, 26, 1, 1, 0, 35000, 292000, 327000, '2021-12-05 10:52:11'),
+(27, 27, 1, 0, 0, 35000, 65000, 65000, '2021-12-05 10:52:11'),
+(28, 28, 28, 1, 0, 35000, 486000, 521000, '2021-12-05 10:52:11'),
+(29, 29, 28, 1, 0, 35000, 66000, 101000, '2021-12-05 11:03:22'),
+(30, 30, 28, 1, 0, 35000, 240000, 275000, '2021-12-05 11:07:47');
 
 -- --------------------------------------------------------
 
@@ -77,7 +80,10 @@ INSERT INTO `cart` (`idCart`, `idProduct`, `quantity`, `price`) VALUES
 (26, 2, 1, 100000),
 (26, 13, 2, 192000),
 (27, 1, 1, 65000),
-(28, 3, 4, 560000);
+(28, 1, 1, 66000),
+(29, 1, 1, 66000),
+(30, 2, 1, 100000),
+(30, 3, 1, 140000);
 
 -- --------------------------------------------------------
 
@@ -155,7 +161,7 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`idProduct`, `nameProduct`, `authorProduct`, `amountProduct`, `imgProduct`, `priceProduct`, `desProduct`, `idCat`, `showHide`) VALUES
-(1, 'Thất Tịch Không Mưa', 'Lâu Vũ Tinh', 10, 'img/that-tich-khong-mua.jpg', 65000, 'Từ nhỏ cô đã thầm yêu anh, như số kiếp không thể thay đổi Tình yêu trong sáng ấy, như lần đầu được nếm mùi vị của quả khế mới chín. Sau đó cô và anh xa nhau, gặp lại đều cách nhau ba năm.\r\n\r\nTình yêu, giống như lần đầu được nếm thử quả khế mới chín.\r\n\r\nChua chua, chát chát, nhưng không kìm được, vẫn muốn nếm thêm lần nữa.\r\n\r\nTrong quả khế chát xanh xanh, nụ cười ngốc nghếch, ngọt ngào của anh, tình đầu thơ ngây, trong sáng của em lặng lẽ nảy mầm.                                                 \r\n                                                    \r\n                                                    \r\n                                                    \r\n                                                    \r\n                                                    \r\n                                                    \r\n                                                    \r\n                                                    \r\n                                                    \r\n                                                    ', 1, 1),
+(1, 'Thất Tịch Không Mưa', 'Lâu Vũ Tinh', 10, 'img/that-tich-khong-mua.jpg', 66000, 'Từ nhỏ cô đã thầm yêu anh, như số kiếp không thể thay đổi Tình yêu trong sáng ấy, như lần đầu được nếm mùi vị của quả khế mới chín. Sau đó cô và anh xa nhau, gặp lại đều cách nhau ba năm.\r\n\r\nTình yêu, giống như lần đầu được nếm thử quả khế mới chín.\r\n\r\nChua chua, chát chát, nhưng không kìm được, vẫn muốn nếm thêm lần nữa.\r\n\r\nTrong quả khế chát xanh xanh, nụ cười ngốc nghếch, ngọt ngào của anh, tình đầu thơ ngây, trong sáng của em lặng lẽ nảy mầm.                                                 \r\n                                                    \r\n                                                    \r\n                                                    \r\n                                                    \r\n                                                    \r\n                                                    \r\n                                                    \r\n                                                    \r\n                                                    \r\n                                                    ', 1, 1),
 (2, 'Call Me By Your Name', 'André Aciman', 10, 'img/call-me-by-your-name.jpg', 100000, 'Gọi em bằng tên anh là câu chuyện tình yêu bất ngờ và mạnh mẽ nảy nở giữa thiếu niên 17 tuổi tên Elio với Oliver, một học giả Mỹ là khách trọ mùa hè ở căn biệt thự của ba mẹ Elio tại vùng duyên hải Riviera nước Ý thập niên 1980. Trong những tuần mùa hè sôi động ấy, dòng chảy cuồn cuộn ám ảnh và đam mê bị kìm nén càng làm mãnh liệt thêm tình yêu giữa hai chàng trai trẻ. Cuốn tiểu thuyết đầu tay của André Aciman là một khúc bi ca chân thành và cảm động dành cho tình yêu con người. Một cuốn sách không thể nào quên.\r\n                                                    \r\n                                                    \r\n                                                    \r\n                                                    ', 1, 1),
 (3, 'Tam Sinh Tam Thế - Thập Lý Đào Hoa', 'Đường Thất Công Tử', 10, 'img/tam-sinh-tam-the.jpg', 140000, 'Một người thà say mèm trong rừng đào mười dặm để quên hết quá khứ, một người nặng tình ba đời ba kiếp mòn mỏi đợi chờ.\r\n\r\nBóng hình bắt gặp đó, như đúng như sai. Những chuyện cũ đã quên đó, như hư như thực.\r\n\r\nMười dặm hoa đào chiếu rạng đôi mắt bi thương, nhưng chẳng thể nào quên đi được giây phút trông thấy gương mặt nàng trong quá khứ.\r\n\r\nQuá khứ, hiện tại, tương lai - ba kiếp nhân duyên của Dạ Hoa và Bạch Thiển, giữa mười dặm hoa đào mênh mông thắm sắc, từ nay chỉ còn hạnh phúc ngập tràn.\"\r\n                                                    ', 1, 1),
 (4, 'Romeo và Juliet', 'Willliam Shakespeare', 10, 'img/romeo-and-juliet.jpg', 120000, 'his major new edition of Shakespeare\'s greatest tragedy of love argues that that play is ultimately Juliet\'s. The play text is expertly edited and the on-page commentary notes discuss issues of staging, theme, meaning and Shakespeare\'s use of his sources to give the reader deep and engaging insights into the play. The richly illustrated introduction looks at the play\'s exceptionally beautiful and complex language and focuses on the figure of Juliet as being at its centre. Rene Weis discusses the play\'s critical, stage and film history, including West Side Story and Baz Luhrmann\'s seminal film Romeo + Juliet. This is an authoritative edition from a leading scholar, giving the reader a penetrating and wide-ranging insight into this ever popular play.', 1, 1),
@@ -246,10 +252,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`idUser`, `username`, `password`, `email`, `ho`, `ten`, `phone`, `address`, `role`) VALUES
-(5, 'bebi', '1', 'khoicari69@gmail.com', 'Trần', 'Hải', '0902188341', 'Hải Châu', 0),
 (11, 'admin', '1', 'khoicari69@gmail.com', 'Nguyễn', 'An', '0902188341', 'Da Nang', 1),
 (28, 'michu', '1', 'khoicari69@gmail.com', 'Nguyễn', 'Khôi', '0902188341', 'Hải Châu', 0),
-(29, 'chuchu', '12222', 'khoicari69@gmail.com', 'Nguyễn', 'Khôi', '0902188341', 'Hải Châu', 1);
+(45, 'kang', '1', 'conganh69@gmail.com', 'Nguyễn', 'Công Anh', '0902188341', 'Hải Châu', 0),
+(49, 'muchi', '1', 'khoicari@gmail.com', 'Nguyễn', 'Khôi', '0902188341', 'Hải Châu', 0);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -301,13 +307,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT cho bảng `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `idBill` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `idBill` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT cho bảng `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `idCart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `idCart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT cho bảng `catalog`
@@ -331,7 +337,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT cho bảng `user`
 --
 ALTER TABLE `user`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

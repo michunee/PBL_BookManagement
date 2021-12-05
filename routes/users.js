@@ -4,7 +4,6 @@ var db = require('../models/database')
 var modelUser = require('../models/model_user');
 var modelCart = require('../models/model_cart');
 const bcrypt = require("bcrypt");
-let bill = null;
 
 
 /* GET users listing. */
@@ -12,7 +11,7 @@ router.get('/tai-khoan', async function(req, res, next) {
   if (req.session.User) {
     let idUser = (req.session.User).id;
     bill = await modelCart.BillCompletedByIDUser(idUser);
-    res.render("my-account.ejs", { user: req.session.User, bill:bill});
+    res.render("my-account.ejs", { user: req.session.User, bill:bill });
   }
 });
 
@@ -25,7 +24,6 @@ router.get('/don-hang:id', async function(req, res, next){
     res.render("chi-tiet-don-hang.ejs", {user: req.session.User, listPro:listPro, bill:bill})
   }
 })
-
 
 // Dang nhap 
 router.post('/dang-nhap', function(req, res, next) {
