@@ -12,11 +12,8 @@ router.get('/', async function(req, res, next)
         var listCategory = await modelCatalog.list();
         var listProduct = await modelProduct.list();
         show = null;
-        if(req.session.require != null)
-        {
-            res.render("product-admin.ejs", {list:listCategory, detail:detail, listPro: listProduct, show, message, nameCatalog: nameCatalog});
-        }
-        else res.render("category-admin.ejs", {list:listCategory, detail:detail, listPro: listProduct, show, message, nameCatalog: nameCatalog});
+        
+        res.render("category-admin.ejs", {list:listCategory, detail:detail, listPro: listProduct, show, message, nameCatalog: nameCatalog});
 });
 
 router.get('/chi-tiet-the-loai:id', async function(req, res, next)
@@ -167,5 +164,19 @@ router.get('/xoa-sach/:id/:idCat', async function(req, res, next)
     res.redirect('/sach/');
 })
 
-module.exports = router;
+router.get('/:name', async function(req, res) {
+    let name = req.params.name;
+    let listPro = await modelCatalog.listByName(name);
+    let listProPopular = await modelProduct.list();
+    let listCat = await modelCatalog.list();
+    let breadcrumb = name;
+    res.render('san-pham-theo-loai-admin', {listPro: listPro,detail:detail, listCat: listCat, listProPopular: listProPopular,message, nameCatalog: nameCatalog, breadcrumb});
+}) 
 
+// API 
+router.get('/api/:name', async function(req, res) {
+    let name = req.params.name;
+    let listPro = await modelCatalog.listByName(name);
+    res.json(listPro);
+})
+module.exports = router;

@@ -13,6 +13,11 @@ router.get('/trang-chu', async function(req, res) {
     res.render('trang-chu', {listPro: listPro, listCat: listCat, listProPopular: listProPopular, breadcrumb});
 });
 
+router.get('/admin', async function(req, res) {
+  
+  res.render('category-admin');
+});
+
 router.get('/:name', async function(req, res) {
     let name = req.params.name;
     let listPro = await modelProduct.list();

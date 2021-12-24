@@ -45,8 +45,9 @@
                     <div class="register-form">
                         <form action="/users/luu" method="post">
                             <div class="row">
-                                <legend class="text-center">ĐĂNG KÝ</legend>
+                                <legend class="text-center">ĐĂNG KÝ</legend>              
                                 <div class="col-md-6">
+                                    <i class="text-warning"><%= message %></i>
                                     <label for="ho">Họ</label>
                                     <input id="ho" name="ho" class="form-control" type="text" placeholder="Họ">
                                 </div>
@@ -57,10 +58,12 @@
                                 <div class="col-md-12">
                                     <label for="username">Tên Đăng Nhập</label>
                                     <input id="username" name="username" class="form-control" type="text" placeholder="Username">
+                                    <i class="text-warning"><%= message1 %></i>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="email">E-mail</label>
                                     <input id="email" name="email" class="form-control" type="text" placeholder="E-mail">
+                                    <i class="text-warning"><%= message2 %></i>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="phone">Số Điện Thoại</label>
@@ -69,11 +72,13 @@
                                 <div class="col-md-6">
                                     <label for="password">Mật Khẩu</label>
                                     <input id="password" name="password" class="form-control" type="password" placeholder="Nhập mật khẩu của bạn">
+                                    <i class="text-warning"><%= message3 %></i>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="retype">Nhập Lại Mật Khẩu</label>
                                     <input id="retype" name="retypePassword" class="form-control" type="password" placeholder="Nhập lại mật khẩu">
                                 </div>
+                                
                                 <div class="col-md-12">
                                     <label>Địa chỉ</label>
                                     <input name="address" class="form-control" type="text" placeholder="Địa chỉ">

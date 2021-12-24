@@ -32,14 +32,13 @@
             <nav class="navbar navbar-expand-md bg-dark navbar-dark">
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto">
-                        <a href="/san-pham/trang-chu" class="nav-item nav-link active">Trang Chủ</a>
-                        <a href="/gio-hang" class="nav-item nav-link">Giỏ Hàng</a>
-                        <a href="/thanh-toan" class="nav-item nav-link">Thanh toán</a>
-                        <a href="" class="nav-item nav-link">Tài khoản của bạn</a>
+                        <a href="/sach/" class="nav-item nav-link">Quản lý kho sách</a>
+                        <a href="/users/quan-ly" class="nav-item nav-link">Quản lý tài khoản</a>
+                        <a href="/users/tai-khoan-admin" class="nav-item nav-link">Tài khoản của bạn</a>
+                        <a href="/users/dang-ky-admin" class="nav-item nav-link">Thêm admin</a>
                         <a href="/users/dang-xuat" class="nav-item nav-link">Đăng xuất</a>
                         </div>
                     </div>
-
                 </div>
             </nav>
         </div>
@@ -52,7 +51,7 @@
             <div class="row align-items-center">
                 <div class="col-md-3">
                     <div class="logo">
-                        <a href="../san-pham/trang-chu">
+                        <a href="../sach/">
                             <img src="../img/favicon.ico" alt="Logo">
                         </a>
                     </div>
@@ -72,8 +71,9 @@
     <div class="breadcrumb-wrap">
         <div class="container-fluid">
             <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="../san-pham/trang-chu">Home</a></li>
-                <li class="breadcrumb-item"><a href="">Tài khoản của bạn</a></li>
+                <li class="breadcrumb-item"><a href="../sach/">Quản lý kho sách</a></li>
+                <li class="breadcrumb-item"><a href="#">Tài khoản của bạn</a></li>
+                
             </ul>
         </div>
     </div>
@@ -86,7 +86,6 @@
                 <div class="col-md-3">
                     <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
                         <a class="nav-link active" id="dashboard-nav" data-toggle="pill" href="#dashboard-tab" role="tab"><i class="fa fa-tachometer-alt"></i>Chào <%=user.ten%></a>
-                        <a class="nav-link" id="orders-nav" data-toggle="pill" href="#orders-tab" role="tab"><i class="fa fa-shopping-bag"></i>Đơn Hàng</a>
                         <a class="nav-link" id="account-nav" data-toggle="pill" href="#account-tab" role="tab"><i class="fa fa-user"></i>Chi Tiết Tài Khoản</a>
                     </div>
                 </div>
@@ -101,51 +100,10 @@
                             </p>
                         </div>
     
-                        <div class="tab-pane fade" id="orders-tab" role="tabpanel" aria-labelledby="orders-nav">
-                            <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <thead class="thead-dark">
-                                        <tr>
-                                            <th>Mã đơn hàng</th>
-                                            <th>Ngày mua</th>
-                                            <th>Tổng giá sản phẩm</th>
-                                            <th>Tổng tiền thanh toán</th>
-                                            <th>Trạng thái</th>
-                                            <th>Chi tiết</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <%for (let b of bill) {%>
-                                        <tr>
-                                            <td>
-                                                <%=b.idBill%>
-                                            </td>
-                                            <td>
-                                                <%=b.date.getDate()%>/<%=b.date.getMonth()%>/<%=b.date.getFullYear()%>
-                                            </td>
-                                            <td>
-                                                <%=b.totalProduct.toLocaleString()%> đ
-                                            </td>
-                                            <td>
-                                                <%=b.total.toLocaleString()%> đ
-                                            </td>
-                                            <td>
-                                                <%if(b.status == "1") {%>
-                                                    Da thanh toan
-                                                <%} else {%>
-                                                    Chua thanh toan
-                                                    <%}%>
-                                            </td>
-                                            <td><a href="/users/don-hang<%=b.idBill%>" type="button" class="btn">View</a></td>
-                                        </tr>
-                                        <%}%>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        
                         <div class="tab-pane fade" id="account-tab" role="tabpanel" aria-labelledby="account-nav">
                             <h4>Chi Tiết Tài Khoản</h4>
-                            <form action="/users/update" method="post">
+                            <form action="/users/update-admin" method="post">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label for="ho">Họ</label>
@@ -174,7 +132,7 @@
                                 </div>
                             </form>
                             <h4>Đổi Mật Khẩu</h4>
-                            <form action="/users/doi-mat-khau" method="post">
+                            <form action="/users/doi-mat-khau-admin" method="post">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <input name="password" class="form-control" type="password" placeholder="Mật khẩu hiện tại">

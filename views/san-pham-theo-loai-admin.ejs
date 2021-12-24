@@ -67,17 +67,17 @@
     </div>
     <!-- Bottom Bar End -->
 
-    <!-- Breadcrumb Start -->
     <div class="breadcrumb-wrap">
         <div class="container-fluid">
             <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Quản lý kho sách</a></li>
+                <li class="breadcrumb-item"><a href="/sach/">Quản lý kho sách</a></li>
                 <li class="breadcrumb-item"><a href="#">Sản phẩm</a></li>
-                
+                <li class="breadcrumb-item active">
+                    <%=breadcrumb%>
+                </li>
             </ul>
         </div>
     </div>
-    <!-- Breadcrumb End -->
     <!-- Product List Start -->
     <div class="product-view">
         <div class="container-fluid">
@@ -105,27 +105,6 @@
                                     <a href="/sach/them-sach"  class="btn" type="button">Thêm sách</a>
                                     <br><br>
                                 </div>
-                                <% for (product of listPro) { %>
-                                    <div class="col-md-4">
-                                        <div class="product-item">
-                                            <div class="product-title">
-                                                <a class="slug"><%=product.nameProduct%></a>
-                                            </div>
-                                            <div class="product-image">
-                                                <a href="product-detail.html">
-                                                    <img src="../<%=product.imgProduct%>" alt="Product Image">
-                                                </a>
-                                                <div class="product-action">
-                                                    <a href="/sach/chi-tiet-sach<%=product.idProduct%>" class="btn" type="button" style="width: 60px;">Chi tiết</a>
-                                                    <a href="/sach/xoa-sach/<%=product.idProduct%>/<%=product.idCat%>" class="btn" type="button" style="width: 60px;">Xoá</a>
-                                                </div>
-                                            </div>
-                                            <div class="product-price">
-                                                <h3><%=product.priceProduct.toLocaleString('vi-VN')%><span> ₫</span></h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <% } %>
                             </div>
                         </div>
 
@@ -140,7 +119,7 @@
                         <h2 class="title">Thể loại</h2>
                         <nav class="navbar bg-light">
                             <ul class="navbar-nav">
-                                <% for (cat of list) { %>
+                                <% for (cat of listCat) { %>
                                     <li class="nav-item">
                                         <a class="nav-link" href="/sach/<%=cat.nameCat%>"><i class="fa fa-book"></i>Sách <%= cat.nameCat %></a>
                                     </li>
@@ -148,10 +127,12 @@
                             </ul>
                         </nav>
                     </div>
+
+                    
+
                 </div>
                 <!-- Side Bar End -->
             </div>
-            
         </div>
     </div>
     <!-- Product List End -->
@@ -174,13 +155,88 @@
 </html>
 
 <script>
-    // Search Product
-    $(document).ready(function() {
-        $("#myInput").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#myTable .col-md-4").filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+
+    const xuLyDuLieu = (data, id) => {
+            const sp_theo_loai = document.getElementById("myTable");
+            let str = ``;
+            for (i in data) {
+                let product = data[i];
+                console.log(product);
+                let newName = replaceNameProduct(product.nameProduct).toLowerCase();
+    
+                str +=
+                    `<div class="col-md-4">
+                                            <div class="product-item">
+                                                <div class="product-title">
+                                                    <a class="slug">${product.nameProduct}</a>
+                                                </div>
+                                                <div class="product-image">
+                                                    <a href="product-detail.html">
+                                                        <img src="../${product.imgProduct}" alt="Product Image">
+                                                    </a>
+                                                    <div class="product-action">
+                                                        <a href="/sach/chi-tiet-sach${product.idProduct}" class="btn" type="button" style="width: 60px;">Chi tiết</a>
+                                                        <a href="/sach/xoa-sach/${product.idProduct}/<%=product.idCat%>" class="btn" type="button" style="width: 60px;">Xoá</a>
+                                                    </div>
+                                                </div>
+                                                <div class="product-price">
+                                                    <h3>${product.priceProduct.toLocaleString('vi-VN')}<span> ₫</span></h3>
+                                                </div>
+                                            </div>
+                                        </div>`;
+            }
+            sp_theo_loai.innerHTML += str;
+        }
+    
+        var paramsString = window.location.href;
+        var index = paramsString.lastIndexOf('c/') + 28;
+        console.log(index)
+        var ten_danh_muc = paramsString.slice(index);
+        console.log(ten_danh_muc);
+    
+        window.fetch(`http://localhost:3000/sach/api/${ten_danh_muc}`)
+            .then(res => {
+                return res.json();
+            })
+            .then(data => {
+                console.log(data);
+                xuLyDuLieu(data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    
+    
+        function xoa_dau(str) {
+            str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+            str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+            str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+            str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+            str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+            str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+            str = str.replace(/đ/g, "d");
+            str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "a");
+            str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "e");
+            str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "i");
+            str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "o");
+            str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "u");
+            str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "y");
+            str = str.replace(/Đ/g, "d");
+            str = str.split(' ').join('-');
+            return str;
+        }
+    
+        function replaceNameProduct(nameProduct) {
+            var newNameProduct = xoa_dau(nameProduct);
+            return newNameProduct;
+        }
+        // Search Product
+        $(document).ready(function() {
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable .col-md-4").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
             });
         });
-    });
-</script>
+    </script>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>BOOK MANAGEMENT</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="eCommerce HTML Template Free Download" name="keywords">
+    <meta content="eCommerce HTML Template Free Download" name="description">
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../img/favicon.ico">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
+
+    <!-- CSS Libraries -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="../lib/slick/slick.css" rel="stylesheet">
+    <link href="../lib/slick/slick-theme.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="../css/style.css" rel="stylesheet">
+</head>
+
+<body style="background-image: url('../img/background2.jpg');">
+
+    <!-- Nav Bar Start -->
+    <div class="nav">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav mr-auto">
+                        <a href="/sach/" class="nav-item nav-link">Quản lý kho sách</a>
+                        <a href="/users/quan-ly" class="nav-item nav-link">Quản lý tài khoản</a>
+                        <a href="/users/tai-khoan-admin" class="nav-item nav-link">Tài khoản của bạn</a>
+                        <a href="/users/dang-ky-admin" class="nav-item nav-link">Thêm admin</a>
+                        <a href="/users/dang-xuat" class="nav-item nav-link">Đăng xuất</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Nav Bar End -->
+
+     <!-- Bottom Bar Start -->
+     <div class="bottom-bar">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-md-3">
+                    <div class="logo">
+                        <a href="../sach/">
+                            <img src="../img/favicon.ico" alt="Logo">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="search">
+                        <input type="text" placeholder="Search">
+                        <button><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bottom Bar End -->
+
+    <!-- Breadcrumb Start -->
+    <div class="breadcrumb-wrap">
+        <div class="container-fluid">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../sach/">Quản lý kho sách</a></li>
+                <li class="breadcrumb-item"><a href="#">Quản lý tài khoản</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Cart Start -->
+    <div class="my-account">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
+                        <a class="nav-link active" id="dashboard-nav" data-toggle="pill" href="#client-tab" role="tab"><i class="fa fa-user"></i>Tài khoản khách</a>
+                        <a class="nav-link" id="account-nav" data-toggle="pill" href="#admin-tab" role="tab"><i class="fa fa-user"></i>Tài khoản admin</a>
+                
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="client-tab" role="tabpanel" aria-labelledby="dashboard-nav">
+                            <div class="col-lg-12">
+                                <table class="table table-bordered">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Tên đăng nhập</th>
+                                            <th>Tên người dùng</th>
+                                            <th>Email</th>
+                                            <th>Số điện thoại</th>
+                                            <th>Địa chỉ</th>
+                                            <th>Reset mật khẩu</th>
+                                            <th>Xóa</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="align-middle">
+                                        <% for (let client of listClient) { %>
+                                            <tr>
+                                                <td>
+                                                    <%=client.username%>
+                                                </td>
+                                                <td>
+                                                    <%=client.ho%> <%=client.ten%>
+                                                </td>
+                                                <td>
+                                                    <%=client.email%>
+                                                </td>
+                                                <td>
+                                                    <%=client.phone%>
+                                                </td>
+                                                <td>
+                                                    <%=client.address%>
+                                                </td>
+                                                <td>
+                                                    <a href="/users/reset-pass/<%=client.idUser%>" type="button"><i class="fa fa-cloud"></i></a>
+                                                </td>
+                                                <td>
+                                                    <a href="/users/xoa/<%=client.idUser%>" type="button"><i class="fa fa-trash"></i></a>
+                                                </td>
+                                                
+                                            </tr>
+                                            <% } %>
+                                    </tbody>
+                                </table> 
+                            </div>
+                        </div>
+    
+                        
+                        <div class="tab-pane fade" id="admin-tab" role="tabpanel" aria-labelledby="account-nav">
+                            <div class="col-lg-12">
+                                <table class="table table-bordered">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Tên đăng nhập</th>
+                                            <th>Tên người dùng</th>
+                                            <th>Email</th>
+                                            <th>Số điện thoại</th>
+                                            <th>Địa chỉ</th>
+                                            <th>Reset mật khẩu</th>
+                                            <th>Xóa</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="align-middle">
+                                        <% for (let admin of listAdmin) { %>
+                                            <tr>
+                                                <td>
+                                                    <%=admin.username%>
+                                                </td>
+                                                <td>
+                                                    <%=admin.ho%> <%=admin.ten%>
+                                                </td>
+                                                <td>
+                                                    <%=admin.email%>
+                                                </td>
+                                                <td>
+                                                    <%=admin.phone%>
+                                                </td>
+                                                <td>
+                                                    <%=admin.address%>
+                                                </td>
+                                                <td>
+                                                    <a href="/users/reset-pass/<%=admin.idUser%>" type="button"><i class="fa fa-cloud"></i></a>
+                                                </td>
+                                                <td>
+                                                    <a href="/users/xoa/<%=admin.idUser%>" type="button"><i class="fa fa-trash"></i></a>
+                                                </td>
+                                            
+                                            </tr>
+                                            <% } %>
+                                    </tbody>
+                                </table> 
+                            </div>
+                            
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Cart End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="../lib/easing/easing.min.js"></script>
+    <script src="../lib/slick/slick.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="../js/main.js"></script>
+
+    
+</body>
+
+</html>

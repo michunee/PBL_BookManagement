@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 15, 2021 lúc 11:13 AM
+-- Thời gian đã tạo: Th12 05, 2021 lúc 12:15 PM
 -- Phiên bản máy phục vụ: 10.4.21-MariaDB
 -- Phiên bản PHP: 8.0.11
 
@@ -20,6 +20,70 @@ SET time_zone = "+00:00";
 --
 -- Cơ sở dữ liệu: `dulieutiemsach`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `bill`
+--
+
+CREATE TABLE `bill` (
+  `idBill` int(11) NOT NULL,
+  `idCart` int(11) DEFAULT NULL,
+  `idUser` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0,
+  `discount` int(11) DEFAULT 0,
+  `ship` double DEFAULT 35000,
+  `totalProduct` double NOT NULL DEFAULT 0,
+  `total` double DEFAULT 0,
+  `date` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Đang đổ dữ liệu cho bảng `bill`
+--
+
+INSERT INTO `bill` (`idBill`, `idCart`, `idUser`, `status`, `discount`, `ship`, `totalProduct`, `total`, `date`) VALUES
+(22, 22, 1, 1, 0, 35000, 265000, 265000, '2021-12-05 10:52:11'),
+(23, 23, 1, 1, 0, 35000, 400000, 400000, '2021-12-05 10:52:11'),
+(24, 24, 1, 1, 0, 35000, 195000, 195000, '2021-12-05 10:52:11'),
+(25, 25, 1, 1, 0, 35000, 100000, 135000, '2021-12-05 10:52:11'),
+(26, 26, 1, 1, 0, 35000, 292000, 327000, '2021-12-05 10:52:11'),
+(27, 27, 1, 0, 0, 35000, 65000, 65000, '2021-12-05 10:52:11'),
+(28, 28, 28, 1, 0, 35000, 486000, 521000, '2021-12-05 10:52:11'),
+(29, 29, 28, 1, 0, 35000, 66000, 101000, '2021-12-05 11:03:22'),
+(30, 30, 28, 1, 0, 35000, 240000, 275000, '2021-12-05 11:07:47');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `cart`
+--
+
+CREATE TABLE `cart` (
+  `idCart` int(11) NOT NULL,
+  `idProduct` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `price` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Đang đổ dữ liệu cho bảng `cart`
+--
+
+INSERT INTO `cart` (`idCart`, `idProduct`, `quantity`, `price`) VALUES
+(22, 1, 1, 65000),
+(22, 2, 2, 200000),
+(23, 2, 4, 400000),
+(24, 1, 3, 195000),
+(25, 2, 1, 100000),
+(26, 2, 1, 100000),
+(26, 13, 2, 192000),
+(27, 1, 1, 65000),
+(28, 1, 1, 66000),
+(29, 1, 1, 66000),
+(30, 2, 1, 100000),
+(30, 3, 1, 140000);
 
 -- --------------------------------------------------------
 
@@ -70,9 +134,9 @@ CREATE TABLE `comment` (
 --
 
 INSERT INTO `comment` (`idComment`, `content`, `ten`, `email`, `date`, `rating`, `idProduct`) VALUES
-(1, 'Sách hay quá', 'Miserchu', 'khoicari69@gmail.com', '2021-11-15 10:20:50', 5, 17),
-(3, 'Sách như loz', 'Công Anh', 'khoicari69@gmail.com', '2021-11-15 17:02:12', 1, 17),
-(4, 'Sách tàm tạm', 'Quy Vu Dinh', 'khoicari69@gmail.com', '2021-11-15 17:04:51', 3, 17);
+(1, 'Sách hay quá', 'Miserchu', 'khoicari69@gmail.com', '2021-11-15 10:20:50', 5, 1),
+(4, 'Sách tàm tạm', 'Quy Vu Dinh', 'khoicari69@gmail.com', '2021-11-15 17:04:51', 3, 1),
+(7, 'Cũng hơi hay', 'Khôi', 'khoicari69@gmail.com', '2021-11-19 15:46:28', 3, 17);
 
 -- --------------------------------------------------------
 
@@ -97,9 +161,9 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`idProduct`, `nameProduct`, `authorProduct`, `amountProduct`, `imgProduct`, `priceProduct`, `desProduct`, `idCat`, `showHide`) VALUES
-(1, 'Thất Tịch Không Mưa', 'Lâu Vũ Tinh', 10, 'img/that-tich-khong-mua.jpg', 63000, 'Từ nhỏ cô đã thầm yêu anh, như số kiếp không thể thay đổi Tình yêu trong sáng ấy, như lần đầu được nếm mùi vị của quả khế mới chín. Sau đó cô và anh xa nhau, gặp lại đều cách nhau ba năm.\r\n\r\nTình yêu, giống như lần đầu được nếm thử quả khế mới chín.\r\n\r\nChua chua, chát chát, nhưng không kìm được, vẫn muốn nếm thêm lần nữa.\r\n\r\nTrong quả khế chát xanh xanh, nụ cười ngốc nghếch, ngọt ngào của anh, tình đầu thơ ngây, trong sáng của em lặng lẽ nảy mầm.', 1, 1),
-(2, 'Call Me By Your Name', 'André Aciman', 10, 'img/call-me-by-your-name.jpg', 100000, 'Gọi em bằng tên anh là câu chuyện tình yêu bất ngờ và mạnh mẽ nảy nở giữa thiếu niên 17 tuổi tên Elio với Oliver, một học giả Mỹ là khách trọ mùa hè ở căn biệt thự của ba mẹ Elio tại vùng duyên hải Riviera nước Ý thập niên 1980. Trong những tuần mùa hè sôi động ấy, dòng chảy cuồn cuộn ám ảnh và đam mê bị kìm nén càng làm mãnh liệt thêm tình yêu giữa hai chàng trai trẻ. Cuốn tiểu thuyết đầu tay của André Aciman là một khúc bi ca chân thành và cảm động dành cho tình yêu con người. Một cuốn sách không thể nào quên.', 1, 1),
-(3, 'Tam Sinh Tam Thế - Thập Lý Đào Hoa', 'Đường Thất Công Tử', 10, 'img/tam-sinh-tam-the.jpg', 140000, 'Một người thà say mèm trong rừng đào mười dặm để quên hết quá khứ, một người nặng tình ba đời ba kiếp mòn mỏi đợi chờ.\r\n\r\nBóng hình bắt gặp đó, như đúng như sai. Những chuyện cũ đã quên đó, như hư như thực.\r\n\r\nMười dặm hoa đào chiếu rạng đôi mắt bi thương, nhưng chẳng thể nào quên đi được giây phút trông thấy gương mặt nàng trong quá khứ.\r\n\r\nQuá khứ, hiện tại, tương lai - ba kiếp nhân duyên của Dạ Hoa và Bạch Thiển, giữa mười dặm hoa đào mênh mông thắm sắc, từ nay chỉ còn hạnh phúc ngập tràn.\"', 1, 1),
+(1, 'Thất Tịch Không Mưa', 'Lâu Vũ Tinh', 10, 'img/that-tich-khong-mua.jpg', 66000, 'Từ nhỏ cô đã thầm yêu anh, như số kiếp không thể thay đổi Tình yêu trong sáng ấy, như lần đầu được nếm mùi vị của quả khế mới chín. Sau đó cô và anh xa nhau, gặp lại đều cách nhau ba năm.\r\n\r\nTình yêu, giống như lần đầu được nếm thử quả khế mới chín.\r\n\r\nChua chua, chát chát, nhưng không kìm được, vẫn muốn nếm thêm lần nữa.\r\n\r\nTrong quả khế chát xanh xanh, nụ cười ngốc nghếch, ngọt ngào của anh, tình đầu thơ ngây, trong sáng của em lặng lẽ nảy mầm.                                                 \r\n                                                    \r\n                                                    \r\n                                                    \r\n                                                    \r\n                                                    \r\n                                                    \r\n                                                    \r\n                                                    \r\n                                                    \r\n                                                    ', 1, 1),
+(2, 'Call Me By Your Name', 'André Aciman', 10, 'img/call-me-by-your-name.jpg', 100000, 'Gọi em bằng tên anh là câu chuyện tình yêu bất ngờ và mạnh mẽ nảy nở giữa thiếu niên 17 tuổi tên Elio với Oliver, một học giả Mỹ là khách trọ mùa hè ở căn biệt thự của ba mẹ Elio tại vùng duyên hải Riviera nước Ý thập niên 1980. Trong những tuần mùa hè sôi động ấy, dòng chảy cuồn cuộn ám ảnh và đam mê bị kìm nén càng làm mãnh liệt thêm tình yêu giữa hai chàng trai trẻ. Cuốn tiểu thuyết đầu tay của André Aciman là một khúc bi ca chân thành và cảm động dành cho tình yêu con người. Một cuốn sách không thể nào quên.\r\n                                                    \r\n                                                    \r\n                                                    \r\n                                                    ', 1, 1),
+(3, 'Tam Sinh Tam Thế - Thập Lý Đào Hoa', 'Đường Thất Công Tử', 10, 'img/tam-sinh-tam-the.jpg', 140000, 'Một người thà say mèm trong rừng đào mười dặm để quên hết quá khứ, một người nặng tình ba đời ba kiếp mòn mỏi đợi chờ.\r\n\r\nBóng hình bắt gặp đó, như đúng như sai. Những chuyện cũ đã quên đó, như hư như thực.\r\n\r\nMười dặm hoa đào chiếu rạng đôi mắt bi thương, nhưng chẳng thể nào quên đi được giây phút trông thấy gương mặt nàng trong quá khứ.\r\n\r\nQuá khứ, hiện tại, tương lai - ba kiếp nhân duyên của Dạ Hoa và Bạch Thiển, giữa mười dặm hoa đào mênh mông thắm sắc, từ nay chỉ còn hạnh phúc ngập tràn.\"\r\n                                                    ', 1, 1),
 (4, 'Romeo và Juliet', 'Willliam Shakespeare', 10, 'img/romeo-and-juliet.jpg', 120000, 'his major new edition of Shakespeare\'s greatest tragedy of love argues that that play is ultimately Juliet\'s. The play text is expertly edited and the on-page commentary notes discuss issues of staging, theme, meaning and Shakespeare\'s use of his sources to give the reader deep and engaging insights into the play. The richly illustrated introduction looks at the play\'s exceptionally beautiful and complex language and focuses on the figure of Juliet as being at its centre. Rene Weis discusses the play\'s critical, stage and film history, including West Side Story and Baz Luhrmann\'s seminal film Romeo + Juliet. This is an authoritative edition from a leading scholar, giving the reader a penetrating and wide-ranging insight into this ever popular play.', 1, 1),
 (5, 'Cuốn Theo Chiều Gió', 'Margaret Mitchell', 10, 'img/cuon-theo-chieu-gio.jpg', 141000, 'Cuốn theo chiều gió là cuốn tiểu thuyết duy nhất của nữ tác giả Margaret Mitchell, ngay từ khi mới ra đời, năm 1936, tác phẩm văn học này đã mau chóng chiếm được tình cảm của người dân Mỹ cũng như chinh phục trái tim của hàng triệu độc giả trên khắp thế giới.\r\n\r\nLấy bối cảnh từ cuộc nội chiến vô cùng khốc liệt giữa Bắc và Nam Mỹ, Cuốn Theo Chiều Gió với cốt truyện rõ ràng, logic, dễ hiểu, đã khắc họa một cách tài tình tâm trạng, tính cách và thân phận của nhiều lớp người trong chiến tranh và thời hậu chiến.\r\n\r\nNhân vật chính của tiểu thuyết là cô gái Scarlett O\'hara cùng với Rhett Butler trở thành cặp nhân vật điển hình, thuộc loại thành công nhất trong văn học Hoa Kỳ. Cuốn Theo Chiều Gió có sức hấp dẫn mãnh liệt giới trẻ Mỹ cũng như thanh niên toàn thế giới vì đây là cuốn tiểu thuyết tình yêu đặc sắc. Lạ kỳ thay, trong chiến tranh và những năm hậu chiến vô cùng gian khổ, tình yêu lại luôn luôn chói ngời, trở thành động lực giúp cho con người vượt qua chết chóc, đói khổ và sự hèn hạ. Không chỉ có tình yêu trai gái, Cuốn Theo Chiều Gió còn là bài ca của tình yêu quê hương đất nước, tình tương thân tương ái.\r\n\r\nBa năm sau khi tiểu thuyết Cuốn Theo Chiều Gió ra đời, bộ phim cùng tên dựng theo tác phẩm của Margaret Mitchell được công chiếu đã trở thành sự kiện lớn, thành niềm tự hào của điện ảnh Mỹ.', 1, 1),
 (6, 'Yêu Em Từ Cái Nhìn Đầu Tiên', 'Cố Mạn', 10, 'img/yeu-em-tu-cai-nhin-dau-tien.jpg', 101000, 'Nhắc đến Yêu em từ cái nhìn đầu tiên có lẽ không cần dùng quá nhiều lời, bởi cùng với Sam Sam đến đây ăn nào, Bên nhau trọn đời, Yêu em từ cái nhìn đầu tiên đã làm nên tên tuổi của Cố Mạn tại Việt Nam.\r\n\r\nĐi cùng?\r\n\r\nHai chữ này kéo Vy Vy trở về hiện tại, lập tức hoàn hồn.Nhìn chiếc xe, lại nhìn Đại Thần, người đẹp Vy Vy lắp bắp:\r\n\r\n“Em… em…”\r\n\r\nTiêu Nại hơi cau mày. Vy Vy trấn tĩnh nói:\r\n\r\n“… Anh đèo em?”.\r\n\r\n“Ừ, đường xa thế chẳng lẽ đi bộ?”.\r\n\r\nĐường đến nhà thi đấu bóng rổ xa thế, đi bộ đương nhiên rất đáng sợ, nhưng… nhưng  đáng sợ hơn chính là anh đèo em! Vy Vy băn khoăn. Với danh tiếng nổi như cồn của Tiêu Nại, cộng thêm chút nổi tiếng nho nhỏ của Vy Vy, đèo nhau trên con đường này, chắc chắn sẽ có ngay những lời đồn hay ho cho coi! Tuy rằng họ hình như, hình như, có vẻ như đúng là đang tiến tới những nghi ngờ hay ho đó, nhưng hiện nay, bây giờ, lúc này họ tuyệt đối trắng tinh hơn cả lông cừu.\r\n\r\n“Như thế này... như thế này... không ổn lắm. Người khác nhìn thấy sẽ hiểu nhầm”.\r\n\r\nVy Vy cố từ chối khéo, hai tai bắt đầu đỏ dần.\r\n\r\n“Hiểu nhầm?”.\r\n\r\nChẳng lẽ anh không hiểu? Vy Vy đành nói thẳng:\r\n\r\n“Hiểu nhầm chúng ta… ôi, là kiểu quan hệ đó…”.\r\n\r\nTiêu Nại lặng lẽ nhìn cô, hồi lâu không nói, Vy Vy cảm thấy một nỗi căng thẳng khó hiểu… mình không nói gì sai chứ? Đúng khi Vy Vy cảm thấy mỗi lúc càng căng thẳng hơn, cuối cùng Nại Hà phá vỡ bầu không khí yên lặng:\r\n\r\n“Thế chúng ta không phải là kiểu quan hệ đó từ khi nào vậy?”.\r\n\r\nYêu em từ cái nhìn đầu tiên từ khi phát hành cho đến nay đã nhận được vô vàn lời khen tặng của độc giả:\r\n\r\n\"Văn chương của Cố Mạn lãng mạn, dịu dàng, khiến người đọc có cảm giác như đang trôi bồng bềnh trong mơ, vừa đọc vừa vén môi cười dịu dàng… Giồng như khi đối diện với mặt nước hồ phẳng lặng, Cố Mạn sẽ rải lên đó một vài cánh hoa hồng…\"\r\n\r\n(Độc giả Bluehopeatm)\r\n\r\n\"Thế giới của Yêu em từ cái nhìn đầu tiên là thế giới màu hồng dịu ngọt… Tuy không thực tế nhưng vẫn khiến ta phải mỉm cười, phải yêu mến.Độc giả Linh_SuriYêu em từ cái nhìn đầu tiên là một câu chuyện nhẹ nhàng ấm áp, một câu chuyện tình đẹp đến nỗi ta không dám tin nó có thực.\"\r\n\r\n(Độc giả Khiconkhocnhe_1992)', 1, 1),
@@ -109,14 +173,14 @@ INSERT INTO `product` (`idProduct`, `nameProduct`, `authorProduct`, `amountProdu
 (10, 'Bá Tước Dracula', 'Bram Stocker', 10, 'img/ba-tuoc-dracula.jpg', 84000, 'Bá Tước Dracula là một cuốn tiểu thuyết kinh dị gothic năm 1897 của tác giả người Ireland Bram Stoker , nổi tiếng với nhân vật ma cà rồng bá tước Dracula .\r\n\r\nCuốn tiểu thuyết kể về hành trình từ Transylva-nia đến Anh để săn lùng những con mồi mới và gieo rắc lời nguyền của Dracula và cuộc chiến giữa hắn và nhóm giáo sư Abraham Van Helsing .\r\n\r\nCuốn tiểu thuyết đề cao vai trò của phụ nữ trong văn hoá Victoria, chủ nghĩa thực dân và chủ nghĩa hậu thực dân . Mặc dù không sáng tạo ra ma cà rồng , nhưng tác phẩm của Stoker đã định ra hình thức hiện đại của nó và tạo ra nhiều diễn giải được áp dụng trong sân khấu , phim ảnh và truyền hình sau này .', 2, 1),
 (11, 'Hannibal', 'Thomas Harris', 10, 'img/hannibal.jpg', 86000, 'Được xem là một trong những sự kiện văn chương được chờ đợi nhất, Hannibal mang người đọc vào cung điện ký ức của một kẻ ăn thịt người, tạo dựng nên một bức chân dung ớn lạnh của tội ác đang âm thầm sinh sôi - một thành công của thể loại kinh dị tâm lý.\r\n\r\nVới Mason Verger, nạn nhân đã bị Hannibal biến thành kẻ người không ra người, Hannibal là mối hận thù nhức nhối da thịt.\r\n\r\nVới đặc vụ Clarice Starling của FBI, người từng thẩm vấn Hannibal trong trại tâm thần, giọng kim ken két của hắn vẫn vang vọng trong giấc mơ cô.\r\n\r\nVới cảnh sát Rinaldo Pazzi đang thất thế, Lecter hứa hẹn mang tới một khoản tiền béo bở để đổi vận.\r\n\r\nVà những cuộc săn lùng Hannibal Lecter bắt đầu, kéo theo đó là những chuỗi ngày run rẩy hòng chấm dứt bảy năm tự do của hắn. Nhưng trong ba kẻ đi săn, chỉ một kẻ có bản lĩnh sống trụ lại để hưởng thành quả của mình.', 2, 1),
 (12, 'Frankenstein', 'Mary Shelly', 10, 'img/frankenstein.jpg', 37000, 'The story of Victor Frankenstein and the monstrous creature he created has held readers spellbound ever since it was published almost two centuries ago. On the surface, it is a novel of tense and steadily mounting horror; but on a more profound level, it offers searching illumination of the human condition in its portrayal of a scientist who oversteps the bounds of conscience, and of a monster brought to life in an alien world, ever more desperately attempting to escape the torture of his solitude. A novel of hallucinatory intensity, \"Frankenstein\" represents one of the most striking flowerings of the Romantic imagination. With a New Introduction by Douglas Clegg And an Afterword by Harold Bloom\"', 2, 1),
-(13, 'Phía Sau Nghi Can X', 'Higashino Keigo', 10, 'img/phia-sau-nghi-can-x.jpg', 96000, '“Việc nghĩ ra một bài toán vô cùng khó và việc giải bài toán đó, việc nào khó hơn?”\r\nKhi nhấn chuông cửa nhà nghi can chính của một vụ án mới, điều tra viên Kusanagi không biết rằng anh sắp phải đương đầu với một thiên tài ẩn dật. Kusanagi càng không thể ngờ rằng, chỉ một câu nói vô thưởng vô phạt của anh đã kéo người bạn thân, Manabu Yukawa, một phó giáo sư vật lý tài năng, vào vụ án. Và điều làm sững sờ nhất, đó là vụ án kia chẳng qua cũng chỉ như một bài toán cấp ba đơn giản, tuy nhiên ấn số X khi được phơi bày ra lại không đem đến hạnh phúc cho bất cứ ai…\r\nVới một giọng văn tỉnh táo và dung dị, Higashino Keigo đã đem đến cho độc giả hơn cả một cuốn tiểu thuyết trinh thám. Mô tả tội ác không phải điều hấp dẫn nhất ở đây, mà còn là những giằng xé nội tâm thầm kín, những nhân vật bình dị, và sự quan tâm sâu sa tới con người. Tác phẩm đã đem lại cho Higashino Keigo Giải Naoki lần thứ 134, một giải thưởng văn học lâu đời sánh ngang giải Akutagawa tại Nhật.', 3, 1),
+(13, 'Phía Sau Nghi Can X', 'Higashino Keigo', 10, 'img/phia-sau-nghi-can-x.jpg', 96000, '“Việc nghĩ ra một bài toán vô cùng khó và việc giải bài toán đó, việc nào khó hơn?”\r\nKhi nhấn chuông cửa nhà nghi can chính của một vụ án mới, điều tra viên Kusanagi không biết rằng anh sắp phải đương đầu với một thiên tài ẩn dật. Kusanagi càng không thể ngờ rằng, chỉ một câu nói vô thưởng vô phạt của anh đã kéo người bạn thân, Manabu Yukawa, một phó giáo sư vật lý tài năng, vào vụ án. Và điều làm sững sờ nhất, đó là vụ án kia chẳng qua cũng chỉ như một bài toán cấp ba đơn giản, tuy nhiên ấn số X khi được phơi bày ra lại không đem đến hạnh phúc cho bất cứ ai…\r\nVới một giọng văn tỉnh táo và dung dị, Higashino Keigo đã đem đến cho độc giả hơn cả một cuốn tiểu thuyết trinh thám. Mô tả tội ác không phải điều hấp dẫn nhất ở đây, mà còn là những giằng xé nội tâm thầm kín, những nhân vật bình dị, và sự quan tâm sâu sa tới con người. Tác phẩm đã đem lại cho Higashino Keigo Giải Naoki lần thứ 134, một giải thưởng văn học lâu đời sánh ngang giải Akutagawa tại Nhật.\r\n                                                    ', 3, 1),
 (14, 'Sherlock Holmes Toàn Tập', 'Conan Doyle', 10, 'img/sherlock-holmes.jpg', 180000, 'Đối với các độc giả yêu thích dòng văn trinh thám nói riêng cũng như những người yêu sách trên toàn thế giới nói chung thì không phải nói nhiều về sức hút của hai cái tên: nhà văn Conan Doyle và “đứa con tinh thần” của cả cuộc đời ông - Sherlock Holmes.\r\n\r\nNhân vật Sherlock Holmes từ lâu đã trở thành nguồn cảm hứng cho hàng trăm, hàng ngàn tác phẩm ở nhiều loại hình nghệ thuật khác: từ âm nhạc, ca kịch đến điện ảnh… Bộ sách Sherlock Holmes Toàn Tập (Hộp 3 Tập) một lần nữa mang đến cho người đọc cơ hội được nhìn ngắm, ngưỡng mộ và đánh giá nhân vật độc đáo của nhà văn tài năng Conan Doyle. Chân dung cuộc đời, sự nghiệp và nhân cách của Sherlock Holmes chưa bao giờ được tái hiện chân thực, đầy đủ và sống động đến thế...\r\n\r\nThông tin nội dung:\r\n\r\nSherlock Holmes là một thám tử tư ở Luân Đôn nổi tiếng nhờ trí thông minh, khả năng suy diễn logic và quan sát tinh tường trong khi phá những vụ án mà cảnh sát phải bó tay.\r\n\r\nSherlock Holmes đã xuất hiện trong 4 tiểu thuyết và 56 truyện ngắn của nhà văn Conan Doyle. Hầu như tất cả các tác phẩm đều được viết dưới dạng ghi chép của bác sĩ John H.Watson, người bạn thân thiết và người ghi chép tiểu sử của Holmes, chỉ có 2 tác phẩm được viết dưới dạng ghi chép của Holmes và 2 tác phẩm khác dưới dạng ghi chép của người thứ ba....\r\n\r\nNhiều người cho rằng Sherlock Homes là nhân vật thám tử hư cấu nổi tiếng nhất trong lịch sử văn học và là một trong những nhân vật văn học được biết đến nhiều nhất trên toàn thế giới.\r\n\r\nĐến với bộ sách Sherlock Holmes toàn tập, quý độc giả sẽ hiểu vì sao tác phẩm này lại được bạn đọc khắp thế giới yêu thích đến như thế.\r\n\r\nTrọn bộ gồm 3 tập:\r\n\r\nSherlock Holmes Toàn Tập - Tập 1\r\n\r\nSherlock Holmes Toàn Tập - Tập 2\r\n\r\nSherlock Holmes Toàn Tập - Tập 3', 3, 1),
 (15, 'Mật Mã Da Vinci', 'Dan Brown', 10, 'img/mat-ma-davinci.jpg', 180000, 'Harvard professor Robert Langdon receives an urgent late-night phone call while on business in Paris: the elderly curator of the Louvre has been brutally murdered inside the museum. Alongside the body, police have found a series of baffling codes.\r\n\r\nAs Langdon and a gifted French cryptologist, Sophie Neveu, begin to sort through the bizarre riddles, they are stunned to find a trail that leads to the works of Leonardo Da Vinci - and suggests the answer to a mystery that stretches deep into the vault of history.\r\n\r\nUnless Langdon and Neveu can decipher the labyrinthine code and quickly assemble the pieces of the puzzle, a stunning historical truth will be lost forever...', 3, 1),
 (16, 'Án Mạng Trên Chuyến Tàu Tốc Hành Phương Đông', 'Agatha Christie', 10, 'img/an-mang-tren-chuyen-tau-toc-hanh-phuong-dong.jpg', 100000, '“Kẻ sát nhân đang đồng hành cùng chúng ta – trên chuyến tàu này…”\r\n\r\nVừa quá nửa đêm, chuyến tàu tốc hành phương Đông nổi tiếng buộc phải ngừng lại vì tuyết rơi quá dày. Vào buổi sáng, tay triệu phú Simon Ratchett được phát hiện nằm chết trong toa riêng của mình với mười hai nhát dao, cửa khoang được khóa từ bên trong. Một trong những hành khách có mặt trên chuyến tàu là thủ phạm.\r\n\r\nMột mình giữa cơn bão tuyết cùng nhân dạng mù mờ về tên sát nhân qua lời chứng của mọi người, thám tử Hercule Poirot phải tìm ra chân tướng kẻ thủ ác giữa mười hai kẻ thù của nạn nhân, trước khi tên giết người kịp đào thoát…', 3, 1),
 (17, 'Bạch Dạ Hành', 'Higashino Keigo', 10, 'img/bach-da-hanh.jpg', 167000, 'Kosuke, chủ một tiệm cầm đồ bị sát hại tại một ngôi nhà chưa hoàn công, một triệu yên mang theo người cũng bị cướp mất.\r\n\r\nSau đó một tháng, nghi can Fumiyo được cho rằng có quan hệ tình ái với nạn nhân và đã sát hại ông để cướp một triệu yên, cũng chết tại nhà riêng vì ngộ độc khí ga. Vụ án mạng ông chủ tiệm cầm đồ rơi vào bế tắc và bị bỏ xó.\r\n\r\nNhưng với hai đứa trẻ mười một tuổi, con trai nạn nhân và con gái nghi can, vụ án mạng năm ấy chưa bao giờ kết thúc. Sinh tồn và trưởng thành dưới bóng đen cái chết của bố mẹ, cho đến cuối đời, Ryoji vẫn luôn khao khát được một lần đi dưới ánh mặt trời, còn Yukiho cứ ra sức vẫy vùng rồi mãi mãi chìm vào đêm trắng.', 3, 1),
 (18, 'Vụ Ám Sát Ông Roger Ackroyd', 'Agatha Christie', 10, 'img/vu-am-sat-ong-roger-ackroyd.jpg', 100000, 'Ở làng King’s Abbot, vụ tự sát của bà góa Ferrars làm dấy lên đồn đoán rằng bà đã giết chồng, bị tống tiền và có quan hệ mờ ám với ông Roger Ackroyd, một người giàu có trong làng. Tối hôm sau, ông Ackroyd bị giết trong phòng làm việc trước khi phát hiện được ai là kẻ tống tiền người đàn bà góa. Thám tử lừng danh Hercule Poirot ra tay phá án, với sự trợ giúp của bác sĩ James Sheppard.\r\n\r\nXuất bản lần đầu năm 1926, Vụ ám sát ông Roger Ackroyd nhanh chóng trở thành hiện tượng xuất bản và sau này được coi là tác phẩm kinh điển của dòng văn học trinh thám phổ thông, mở ra một kỷ nguyên mới cho văn chương thể loại này.', 3, 1),
-(19, 'Tam Thể', 'Lưu Từ Hân', 10, 'img/tam-the.jpg', 120000, 'Uông Diểu, vị giáo sư về vật liệu nano ngày nào cũng đăng nhập vào “Tam Thể”. Tại trò chơi online đó, anh đắm chìm trong một thế giới khác, nơi một nền văn minh có thể chỉ kéo dài vài ngày, bầu trời có thể xuất hiện ba mặt trời cùng lúc và con người còn phải biến thành xác khô để sinh tồn.\r\n\r\nNhưng anh không thể ngờ, thế giới khắc nghiệt trong Tam Thể là có thực, chỉ cách trái đất chừng bốn năm ánh sáng, và trò chơi ảo kia lại là một cánh cửa để những sinh vật của thế giới ấy bước đến xâm chiếm địa cầu này. Kinh hoàng, Uông Diểu tìm mọi cách ngăn chặn điều đó. Nhưng anh, cũng như cả địa cầu, không biết rằng, cánh cửa nọ đã được mở toang, từ mấy chục năm về trước.\r\n\r\nHùng tráng, kịch tính, triết lý, nên thơ, với những tri thức khoa học thú vị, Tam thể là phần mở đầu mang cảm hứng sử thi cho tam bộ khúc của Lưu Từ Hân. Sau tất cả những mưu toan ly kỳ, nham hiểm, những nỗ lực tưởng chừng tuyệt vọng để sinh tồn, câu hỏi còn đọng lại, không phải \'Loài người nên làm gì để đối phó với sự xâm lăng của Tam Thể?\', mà là \'Loài người đã làm gì chính mình?\'', 4, 1),
-(20, 'Hai Vạn Dặm Dưới Biển', 'Jules Verne', 10, 'img/hai-van-dam-duoi-bien.jpg', 89000, 'Hai Vạn Dặm Dưới Đáy Biển là một tiểu thuyết khoa học viễn tưởng kinh điển của nhà văn người Pháp – Jules Verne xuất bản vào năm 1870. Nó kể câu chuyện về Thuyền trưởng Nê-mô – một người thù ghét đất liền và con tàu ngầm Nau-ti-lux có một không hai của ông ta, từ quan điểm của giáo sư A-rô-nắc. Trong một chuyến đi khảo sát sinh vật biển bí ẩn trên chiếc tàu Lin-côn, giáo sư A-rô-nắc - một giáo sư giàu kiến thức ham mê tìm tòi; trợ lý Công-xây - anh phụ tá điềm tĩnh đến lạ thường, chung thành tuyệt đối, ham thích phân loại giống vật; và chàng thợ đánh bắt cá voi cừ khôi, nóng tính nhưng cũng trượng nghĩa - Nét Len, tất cả bị rơi khỏi tàu và vô tình bị bắt vào tàu ngầm Nau-ti-lux của thuyền trưởng Nê-mô. Từ đây họ bắt đầu một hành trình khám phá thế giới đại dương huyền ảo với thuyền trưởng Nê-Mô và các thủy thủ trên tàu Nau-ti-lux.', 4, 1),
+(19, 'Tam Thể', 'Lưu Từ Hân', 10, 'img/tam-the.jpg', 120000, 'Uông Diểu, vị giáo sư về vật liệu nano ngày nào cũng đăng nhập vào “Tam Thể”. Tại trò chơi online đó, anh đắm chìm trong một thế giới khác, nơi một nền văn minh có thể chỉ kéo dài vài ngày, bầu trời có thể xuất hiện ba mặt trời cùng lúc và con người còn phải biến thành xác khô để sinh tồn.\r\n\r\nNhưng anh không thể ngờ, thế giới khắc nghiệt trong Tam Thể là có thực, chỉ cách trái đất chừng bốn năm ánh sáng, và trò chơi ảo kia lại là một cánh cửa để những sinh vật của thế giới ấy bước đến xâm chiếm địa cầu này. Kinh hoàng, Uông Diểu tìm mọi cách ngăn chặn điều đó. Nhưng anh, cũng như cả địa cầu, không biết rằng, cánh cửa nọ đã được mở toang, từ mấy chục năm về trước.\r\n\r\nHùng tráng, kịch tính, triết lý, nên thơ, với những tri thức khoa học thú vị, Tam thể là phần mở đầu mang cảm hứng sử thi cho tam bộ khúc của Lưu Từ Hân. Sau tất cả những mưu toan ly kỳ, nham hiểm, những nỗ lực tưởng chừng tuyệt vọng để sinh tồn, câu hỏi còn đọng lại, không phải \'Loài người nên làm gì để đối phó với sự xâm lăng của Tam Thể?\', mà là \'Loài người đã làm gì chính mình?\'\r\n                                                    ', 4, 1),
+(20, 'Hai Vạn Dặm Dưới Biển', 'Jules Verne', 10, 'img/hai-van-dam-duoi-bien.jpg', 89000, 'Hai Vạn Dặm Dưới Đáy Biển là một tiểu thuyết khoa học viễn tưởng kinh điển của nhà văn người Pháp – Jules Verne xuất bản vào năm 1870. Nó kể câu chuyện về Thuyền trưởng Nê-mô – một người thù ghét đất liền và con tàu ngầm Nau-ti-lux có một không hai của ông ta, từ quan điểm của giáo sư A-rô-nắc. Trong một chuyến đi khảo sát sinh vật biển bí ẩn trên chiếc tàu Lin-côn, giáo sư A-rô-nắc - một giáo sư giàu kiến thức ham mê tìm tòi; trợ lý Công-xây - anh phụ tá điềm tĩnh đến lạ thường, chung thành tuyệt đối, ham thích phân loại giống vật; và chàng thợ đánh bắt cá voi cừ khôi, nóng tính nhưng cũng trượng nghĩa - Nét Len, tất cả bị rơi khỏi tàu và vô tình bị bắt vào tàu ngầm Nau-ti-lux của thuyền trưởng Nê-mô. Từ đây họ bắt đầu một hành trình khám phá thế giới đại dương huyền ảo với thuyền trưởng Nê-Mô và các thủy thủ trên tàu Nau-ti-lux.\r\n                                                    ', 4, 1),
 (21, 'Người Máy Có Mơ Về Cừu Điện Không', 'Philip K.Dick', 10, 'img/nguoi-may-co-mo-ve-cuu-dien-khong.jpg', 92000, 'Người Máy Có Mơ Về Cừu Điện Không?- một trong những cuốn tiểu thuyết khoa học viễn tưởng viết năm 1986 đưa lại hình dung đình đám nhất về đời sống hậu-nhân loại (post-human) của Phillip K.Dick', 4, 1),
 (22, 'Nhà Hàng Ở Tận Cùng Vũ Trụ', 'Douglas Adams', 10, 'img/nha-hang-o-tan-cung-vu-tru.jpg', 87000, 'Bởi Trái Đất đã nổ tung, chúng ta hãy cứ tiếp tục lạc trôi trong Vũ Trụ cùng Bí kíp quá giang vào Ngân Hà và nhóm người ngoài hành tinh kỳ quặc: Arthur Dent người trái đất, Ford Prefect, bạn lâu năm kiêm biên tập viên kỳ cựu của Bí kíp; Zaphod Beeblebrox, cựu tổng thống Ngân Hà ba tay hai đầu; Tricia McMillan, cũng người trái đất; và Marvin, người máy hoang tưởng trầm uất. Và đích đến là đâu? Chính là địa điểm vừa để giải trí tận thế vừa ăn tối cực hot; nơi đồ ăn (thật sự) sẽ tự chúng lên tiếng mời bạn xơ chúng.\r\n\r\nNhưng liệu bọn họ có đến được nơi? Câu trả lời là: khó nói lắm. Song bạn hãy nhớ Bí kíp đã xóa luôn thời Tương lai Hoàn thành bởi cuốn sách đã khám phá ra rằng: Chẳng có tương lai nào hoàn thành cả!\r\n\r\n\"Cái hài hước của cuốn sách vừa ngầu vừa đậm vẻ chán chường, nó không thẹn thùng mà thu hút ngay bất cứ ai thấy - cuộc đời quá ngắn để coi mọi chuyện là nghiêm túc.\" - Observer Colour Magazine', 4, 1),
 (23, 'Cỗ Máy Thời Gian', 'H.G.Wells', 10, 'img/co-may-thoi-gian.jpg', 50000, 'Nhân vật chính trong Cỗ máy Thời Gian, bằng phát minh khoa học của mình, đã đến tương lai xa xôi năm 802701 và dấn thân vào cuộc hành trình đi tìm câu trả lời về số phận của nhân loại. Những tưởng sẽ thấy được con người ở giai đoạn đỉnh cao huy hoàng nhưng tiếc thay trước mắt ông chỉ là một chuỗi những tàn tích, hậu quả để lại từ cuộc sống hiện tại. Sức mạnh, trí tuệ và cả những tình cảm thiện lương nguyên sơ dần thoái hóa, báo hiệu nhân loại đã “tới hồi tàn tạ”. Ra đời vào cuối thế kỉ 19, Cỗ máy Thời Gian sớm trở thành lời cảnh tỉnh về những diễn biến đáng lo ngại của xã hội loài người ở thực tại. Với văn phong mới lạ đan xen u ám, cốt truyện khoa học giả tưởng nhưng lại hiển hiện rõ sự thật về cuộc sống con người, tiểu thuyết đầu tay của nhà văn H. G. Wells suốt hơn 100 năm qua vẫn giữ nguyên tính sáng tạo và nét hấp dẫn, trở thành nguồn cảm hứng cho nhiều phóng tác nghệ thuật khác nhau.', 4, 1),
@@ -146,7 +210,7 @@ INSERT INTO `product` (`idProduct`, `nameProduct`, `authorProduct`, `amountProdu
 (46, '109 Hiện Tượng Bí Ẩn Trên Thế Giới', 'Nhiều Tác Giả', 10, 'img/109-hien-tuong-bi-an-tren-the-gioi.jpg', 660000, 'Vũ trụ bao la đầy huyền bí luôn kích thích trí tưởng tượng vô cùng vô tận của con người. Nhưng đến nay, vũ trụ vẫn giấu kín trong mình vô số những bí mật, những câu đố thách thức nền khoa học nhân loại. Dù một phần nào đó những nghi vấn đã được giải đáp, nhưng Trái Đất của chúng ta vẫn còn rất nhiều điều bí ẩn mà các nhà khoa học vẫn chưa thể lý giải được.\r\n\r\nCuốn sách “109 hiện tượng bí ẩn trên thế giới” được nhiều tác giả biên soạn, với mong muốn mang đến cho độc giả những thông tin về sự vật, hiện tượng “lạ” đầy bí ẩn mà cho đến nay nhân loại vẫn chưa tìm được lời giải đáp. Hy vọng cuốn sách sẽ đưa bạn đọc đi từ bất ngờ này đến bất ngờ khác với những địa danh kỳ bí, những sinh vật lạ lùng, và những hiện tượng siêu nhiên vô cùng huyền bí.', 8, 1),
 (47, 'Định Lý Cuối Cùng Của Fermat', 'Lê Quang Ánh', 10, 'img/dinh-ly-cuoi-cung-cua-fermat.jpg', 62000, 'Trong lịch sử phát triển của toán học có lẽ không có định lý nào nổi tiếng như Định lý cuối cùng của Fermat. Nó nổi tiếng vì dạng của nó quá đơn giản. Nó nổi tiếng vì từ khi được Fermat phát biểu (1637) cho tới khi nó được chứng minh (1995) phải mất 358 năm, thời gian dài nhất để một định lý được chứng minh mặc dù có bao nhiêu bộ óc thông minh nhất, kiên trì nhất đã thử qua và đành chịu thua.\r\n\r\nMãi cho đến khi người ta rất tình cờ tìm thấy chiếc chìa khóa của nó nằm tại Nhật Bản, nơi hai samurai trẻ thời hậu chiến đã đưa ra một giả thuyết không liên can gì đến bài toán, nhưng lại là để giải bài toán hóc búa kia. Và khi đưa ra xong, một trong hai tác giả đã tự sát, một điều không ai hiểu nổi. TS Lê Quang Ánh tái hiện lại câu chuyện hết sức ly kỳ này trong Định lý cuối cùng của Fermat-một mật mã huyền bí và định mệnh bằng những nghiên cứu riêng công phu và sâu sắc của mình.\r\n\r\nHấp dẫn, lôi cuốn và đầy kịch tính ngay từ những trang đầu tiên, cuốn sách sẽ mang đến cho độc giả những khám phá thú vị và bổ ích về bài toán Fermat đầy huyền bí này.', 8, 1),
 (48, 'Bí Ẩn Về Vũ Trụ', 'Song Linh', 10, 'img/bi-an-ve-vu-tru.jpg', 62000, 'người đọc sẽ có dịp du hành trong vũ trụ, khám phá thế giới từ vĩ mô của những thiên hà to lớn đến thế giới vi mô của những con vi khuẩn nhỏ bé trên Trái đất, đi từ những nền văn minh xa xưa đến tương lai của thế giới, cho ta thấy mối gắn bó hữu cơ của từng sự việc nhỏ nhặt với vũ trụ bao la và nghe những giọng điệu nhiều bè của Vũ trụ. Vũ trụ đã chỉ là vũ trụ vô tri, hỗn độn, mà còn là một thế giới có trật tự, có tri giác, đầy nhân văn và xúc cảm.', 8, 1),
-(49, 'Ba Người Lính Ngự Lâm', 'Alexandre Dumas', 10, 'img/ba-nguoi-linh-ngu-lam.jpg', 163000, 'Tình cờ gặp gỡ ở Paris, chàng quý tộc tỉnh lẻ d’Artagnan kết thân cùng ba người lính ngự lâm Athos, Aramis, Porthos. Từ bốn con người với những tính cách hoàn toàn khác biệt - nhà quý tộc Athos mẫu mực từ trong ra ngoài, ông hộ pháp Porthos huênh hoang nhưng tốt bụng, ngài “tu viện trưởng” Aramis duyên dáng như con gái nhưng sâu sắc chẳng kém ai, chàng trẻ tuổi d’Artagnan khôn ngoan và liều lĩnh -  họ kết thành một khối thống nhất nhờ tình bạn keo sơn “Một người vì mọi người, mọi người vì một người.”\r\n\r\nGiữa cảnh tao loạn của nước Pháp thế kỉ XVI, trong thế giới của những ông hoàng bà chúa đầy những âm mưu, thủ đoạn, bốn người bạn cùng nhau bước vào những cuộc phiêu lưu đầy chất anh hùng, nghĩa hiệp nhưng cũng đầy chất lãng mạn của tình yêu.\r\n\r\nMời bạn đọc cùng theo bước họ để thấy sống dậy một thời kì lịch sử được soi qua lăng kính kì diệu của trí tưởng tượng mà thêm phần li kì hồi hộp, lại dạt dào cái sôi nổi, hào hứng của tuổi trẻ.', 9, 1),
+(49, 'Ba Người Lính Ngự Lâm', 'Alexandre Dumas', 10, 'img/ba-nguoi-linh-ngu-lam.jpg', 163000, 'Tình cờ gặp gỡ ở Paris, chàng quý tộc tỉnh lẻ d’Artagnan kết thân cùng ba người lính ngự lâm Athos, Aramis, Porthos. Từ bốn con người với những tính cách hoàn toàn khác biệt - nhà quý tộc Athos mẫu mực từ trong ra ngoài, ông hộ pháp Porthos huênh hoang nhưng tốt bụng, ngài “tu viện trưởng” Aramis duyên dáng như con gái nhưng sâu sắc chẳng kém ai, chàng trẻ tuổi d’Artagnan khôn ngoan và liều lĩnh -  họ kết thành một khối thống nhất nhờ tình bạn keo sơn “Một người vì mọi người, mọi người vì một người.”\r\n\r\nGiữa cảnh tao loạn của nước Pháp thế kỉ XVI, trong thế giới của những ông hoàng bà chúa đầy những âm mưu, thủ đoạn, bốn người bạn cùng nhau bước vào những cuộc phiêu lưu đầy chất anh hùng, nghĩa hiệp nhưng cũng đầy chất lãng mạn của tình yêu.\r\n\r\nMời bạn đọc cùng theo bước họ để thấy sống dậy một thời kì lịch sử được soi qua lăng kính kì diệu của trí tưởng tượng mà thêm phần li kì hồi hộp, lại dạt dào cái sôi nổi, hào hứng của tuổi trẻ.\r\n                                                    ', 9, 1),
 (50, 'Harry Potter (Bộ 8 Cuốn)', 'J.K.Rowling', 10, 'img/harry-potter.jpg', 1421000, 'Bộ truyện bảy tập Harry Potter là tác phẩm đáng tự hào nhất, nổi tiếng nhất đồng thời cũng là tác phẩm mang lại danh tiếng cho sự nghiệp văn chương của nữ tác giả người Anh J. K. Rowling.\r\n\r\nNội dung câu chuyện giả tưởng từng gây sốt trên nhiều thị trường sách này kể về cuộc chiến của cậu bé Harry Potter một mình chống lại một phù thủy hắc ám Chúa tể Voldemort, người đã giết cha mẹ cậu để thực hiện tham vọng làm chủ thế giới phù thủy. Harry Potter đã chắp cánh cho trí tưởng tượng của trẻ em trên toàn thế giới bay cao bay xa trong thế giới pháp thuật huyền hoặc. Truyện bắt đầu với một nhân vật bình thường, thậm chí là có phần tầm thường và nó diễn ra ngay bên cạnh chúng ta, bắt đầu từ sân ga 9¾ ở nhà ga Ngã tư Vua. Lần lượt bảy tập truyện sẽ đưa độc giả đi khám phá con đường trở thành pháp sư đầy chông gai, thử thách của Harry cùng với các bạn của mình tại ngôi trường phù thủy Hogwarts.', 9, 1),
 (51, 'Những Cuộc Phiêu Lưu Của Huckleberry Finn', 'Mark Twain', 10, 'img/nhung-cuoc-phieu-luu-cua-huckleberry-finn.jpg', 100000, 'Câu chuyện kể về những cuộc phiêu lưu của Huckleberry Finn trên dòng sông Mississippi với người bạn là Jim, một nô lệ đang chạy thoát. Quyển sách miêu tả những cảnh vật trên dòng sông và châm biếm những quan điểm ở miền Nam Hoa Kỳ thời tiền chiến, đặc biệt là quan điểm kỳ thị chủng tộc. Hình ảnh Huck và Jim trên chiếc bè chạy theo dòng sông, đi đến tự do, là một trong những hình ảnh bất hủ nhất trong văn học Hoa Kỳ.', 9, 1),
 (52, 'Robinson Crusoe', 'Daniel Defoe', 10, 'img/robinson-crusoe.jpg\r\n', 133000, 'Bỗng chốc bị tách khỏi thế giới văn minh, đứt đoạn khát khao phiêu lưu bốn bể, chàng thanh niên Robinson, nạn nhân của một vụ đắm tàu, đã đặt chân lên một hoang đảo, và sống một cuộc đời phi thường. Bằng nghị lực, lòng dũng cảm và trí tuệ, anh đương đầu cùng thổ dân ăn thịt người, chiến đấu với hàng đàn thú dữ, chinh phục tự nhiên để tạo dựng nên “nền văn minh Robinson” tự cung tự cấp: đóng bàn, làm ghế, trồng lúa, may áo, làm gốm, chăn dê… Robinson luôn sống lạc quan với niềm vui thú sáng tạo và trải nghiệm vì với anh mỗi ngày trôi qua đều là một cuộc phiêu lưu mới. Chinh phục bạn đọc với tinh thần ấy, đã có thời, Robinson Crusoe xếp thứ hai trong các tác phẩm được dịch ra nhiều ngôn ngữ nhất trên thế giới, chỉ sau Kinh Thánh.\r\n\r\nTrong lần xuất bản này, để trọn vẹn hơn các cuộc phiêu lưu hấp dẫn của Robinson, bên cạnh phần I “Trôi dạt nơi hoang đảo” đã quen thuộc, Đông A còn giới thiệu phần II “Kể lại chuyện kỳ thú trong các chuyến du hành qua ba phần địa cầu” chưa từng được dịch và xuất bản tại Việt Nam. Mong rằng, “bảy mươi hai năm phiêu lưu, nếm trải cuộc sống muôn màu” của Robinson sẽ một lần nữa thôi thúc niềm khát khao dấn bước của bạn đọc trên những nẻo đường của riêng mình.', 9, 1),
@@ -179,26 +243,35 @@ CREATE TABLE `user` (
   `ho` varchar(50) NOT NULL,
   `ten` varchar(50) NOT NULL,
   `phone` varchar(50) NOT NULL,
-  `address` varchar(50) NOT NULL
+  `address` varchar(50) NOT NULL,
+  `role` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `user`
 --
 
-INSERT INTO `user` (`idUser`, `username`, `password`, `email`, `ho`, `ten`, `phone`, `address`) VALUES
-(1, 'michu', '1', 'khoicari69@gmail.com', 'Nguyễn', 'Khôi', '0902188341', 'Đà Nẵng'),
-(2, 'Khoivuong', '1234', 'khoicari69@gmail.com', 'Nguyễn', 'Khôi', '0902188341', 'Da Nang'),
-(3, 'phuongcute', '1234567', 'phuongngok@gmail.com', 'Trần', 'Phương', '0902188341', 'Hải Châu'),
-(4, 'longbeo', '1234', 'longbeo@gmail.com', 'Nguyễn', 'Long', '0902188341', 'Hải Châu'),
-(5, 'bebi', '1', 'khoicari69@gmail.com', 'Trần', 'Hải', '0902188341', 'Hải Châu'),
-(6, 'longdt1', '123', 'longduong@gmail.com', 'Dương Phước', 'Long', '231231231', 'Đà Nẵng'),
-(7, 'mimi', '123456', 'khoicari69@gmail.com', 'Trần', 'Mi', '2342343242', 'Hải Châu'),
-(9, 'muchi', '1', 'khoicari69@gmail.com', 'Chu', 'Mi', '0902188341', 'Hải Châu');
+INSERT INTO `user` (`idUser`, `username`, `password`, `email`, `ho`, `ten`, `phone`, `address`, `role`) VALUES
+(11, 'admin', '1', 'khoicari69@gmail.com', 'Nguyễn', 'An', '0902188341', 'Da Nang', 1),
+(28, 'michu', '1', 'khoicari69@gmail.com', 'Nguyễn', 'Khôi', '0902188341', 'Hải Châu', 0),
+(45, 'kang', '1', 'conganh69@gmail.com', 'Nguyễn', 'Công Anh', '0902188341', 'Hải Châu', 0),
+(49, 'muchi', '1', 'khoicari@gmail.com', 'Nguyễn', 'Khôi', '0902188341', 'Hải Châu', 0);
 
 --
 -- Chỉ mục cho các bảng đã đổ
 --
+
+--
+-- Chỉ mục cho bảng `bill`
+--
+ALTER TABLE `bill`
+  ADD PRIMARY KEY (`idBill`);
+
+--
+-- Chỉ mục cho bảng `cart`
+--
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`idCart`,`idProduct`) USING BTREE;
 
 --
 -- Chỉ mục cho bảng `catalog`
@@ -231,6 +304,18 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT cho bảng `bill`
+--
+ALTER TABLE `bill`
+  MODIFY `idBill` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT cho bảng `cart`
+--
+ALTER TABLE `cart`
+  MODIFY `idCart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
 -- AUTO_INCREMENT cho bảng `catalog`
 --
 ALTER TABLE `catalog`
@@ -240,19 +325,19 @@ ALTER TABLE `catalog`
 -- AUTO_INCREMENT cho bảng `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `idComment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idComment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT cho bảng `product`
 --
 ALTER TABLE `product`
-  MODIFY `idProduct` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `idProduct` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT cho bảng `user`
 --
 ALTER TABLE `user`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

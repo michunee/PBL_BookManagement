@@ -192,7 +192,7 @@
                                                 <img src="../<%=product.imgProduct%>" alt="Product Image">
                                             </a>
                                         <div class="product-action">
-                                            <a href="#"><i class="fa fa-cart-plus"></i></a>
+                                            <a class="slug" href="/san-pham/<%=product.nameProduct%>"><i class="fa fa-cart-plus"></i></a>
                                             <a href="#"><i class="fa fa-heart"></i></a>
                                             <a class="slug" href="/san-pham/<%=product.nameProduct%>"><i class="fa fa-search"></i></a>
                                         </div>
@@ -200,7 +200,7 @@
                                     <div class="product-price">
                                         <h3>
                                             <%=product.priceProduct.toLocaleString('vi-VN')%> <span>₫</span></h3>
-                                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Mua Ngay</a>
+                                        <a class="btn & slug" href="/san-pham/<%=product.nameProduct%>"><i class="fa fa-shopping-cart"></i>Mua Ngay</a>
                                     </div>
                                 </div>
                                 <% } %>
@@ -259,14 +259,14 @@ const xuLyDuLieu = (data, id) => {
                             <img src="../${product.imgProduct}" alt="Product Image" width="100%">
                         </a>
                         <div class="product-action">
-                            <a href="#"><i class="fa fa-cart-plus"></i></a>
+                            <a class="slug" href="/san-pham/${newName}"><i class="fa fa-cart-plus"></i></a>
                             <a href="#"><i class="fa fa-heart"></i></a>
                             <a class="slug" href="/san-pham/${newName}"><i class="fa fa-search"></i></a>
                         </div>
                     </div>
                     <div class="product-price">
                         <h3>${product.priceProduct.toLocaleString('vi-VN')}<span> ₫</span></h3>
-                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Mua Ngay</a>
+                        <a class="btn & slug" href="/san-pham/${newName}"><i class="fa fa-shopping-cart"></i>Mua Ngay</a>
                     </div>
                 </div>
             </div>`;
