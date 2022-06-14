@@ -10,7 +10,7 @@ There are some screenshots about this app, and the sequence of using the app.
 
 ![markdown](./public/readme/Login.png)
 
-2. Homepage customer
+2. Homepage Customer
 
 ![markdown](./public/readme/Homepage.png)
 
